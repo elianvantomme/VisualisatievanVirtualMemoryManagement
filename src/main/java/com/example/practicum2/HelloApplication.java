@@ -12,15 +12,13 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 975, 599);
+        Scene scene = new Scene(fxmlLoader.load(), 1214, 756);
         stage.setTitle("Visualisatie van Virtual Memory Management");
         stage.setScene(scene);
         stage.show();
     }
 
     public static void main(String[] args) {
-        XMLParser xmlParser = new XMLParser("virtual memory/Instructions_30_3.xml");
-        ArrayList<Process> mainMemory = xmlParser.readProcesses();
 
         launch();
     }

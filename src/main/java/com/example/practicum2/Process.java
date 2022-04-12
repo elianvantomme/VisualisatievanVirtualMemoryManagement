@@ -7,9 +7,11 @@ public class Process {
     private String operation;
     private int virtualAddress;
     private ArrayList<PageTableEntry> pageTable;
+    private int amountToPersistentMemory;
 
     public Process(){
         this.pageTable = new ArrayList<>();
+        amountToPersistentMemory = 0;
     }
 
     public void setpId(int pId) {
@@ -22,5 +24,9 @@ public class Process {
 
     public void setVirtualAddress(int virtualAddress) {
         this.virtualAddress = virtualAddress;
+    }
+
+    public void increaseAmountToPersistentMemory() {
+        amountToPersistentMemory++;
     }
 }
