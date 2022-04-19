@@ -21,4 +21,11 @@ public class PageTableEntry {
     public void setPresentBit(int presentBit) {
         this.presentBit = presentBit;
     }
+
+    public String toString(){
+        return "Present Bit: "+presentBit+"\n"+
+                "Modify Bit: "+modifyBit+"\n"+
+                "Last Access Time: "+lastAccessTime+"\n"+
+                "Frame Number: "+frameNummer;
+    }
 }

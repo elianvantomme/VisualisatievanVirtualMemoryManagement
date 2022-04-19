@@ -15,18 +15,18 @@ import java.util.ArrayList;
 
 public class XMLParser {
 
-    private ArrayList<Process> processLijst;
+    private ArrayList<Instruction> instructionLijst;
     private String file;
 
 
 
     public XMLParser(String file) {
-        this.processLijst = new ArrayList<>();
+        this.instructionLijst = new ArrayList<>();
         this.file = file;
     }
 
 
-    public ArrayList<Process> readProcesses() {
+    public ArrayList<Instruction> readProcesses() {
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
@@ -43,29 +43,29 @@ public class XMLParser {
                 if (processNode.getNodeType() == Node.ELEMENT_NODE) {
                     NodeList processParams = processNode.getChildNodes();
 
-                    Process process = new Process();
+                    Instruction instruction = new Instruction();
                     for (int j = 0; j < processParams.getLength(); j++) {
                         Node param = processParams.item(j);
 
                         if (param.getNodeType() == Node.ELEMENT_NODE) {
                             Element detailElement = (Element) param;
                             if (detailElement.getNodeName().equals("processID")){
-                                process.setpId(Integer.parseInt(detailElement.getTextContent()));
+                                instruction.setpId(Integer.parseInt(detailElement.getTextContent()));
                             }else if (detailElement.getNodeName().equals("operation")){
-                                process.setOperation(detailElement.getTextContent());
+                                instruction.setOperation(detailElement.getTextContent());
                             }else{
-                                process.setVirtualAddress(Integer.parseInt(detailElement.getTextContent()));
+                                instruction.setVirtualAddress(Integer.parseInt(detailElement.getTextContent()));
                             }
                         }
                     }
-                    processLijst.add(process);
+                    instructionLijst.add(instruction);
                 }
             }
         } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
         }
 
-        return processLijst;
+        return instructionLijst;
 
     }
 }

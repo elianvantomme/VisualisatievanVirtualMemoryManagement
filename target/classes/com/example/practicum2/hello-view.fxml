@@ -12,9 +12,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1214.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.practicum2.Controller">
    <children>
-      <HBox layoutX="-3.0" layoutY="675.0" prefHeight="70.0" prefWidth="1214.0">
+      <HBox layoutY="686.0" prefHeight="70.0" prefWidth="1214.0">
          <children>
-            <Button fx:id="option1Btn" mnemonicParsing="false" onAction="#changeOption1" prefHeight="76.0" prefWidth="387.0" text="Option 1" />
+            <Button fx:id="option1Btn" mnemonicParsing="false" onAction="#changeOption1" prefHeight="70.0" prefWidth="378.0" text="Option 1" />
             <VBox prefHeight="0.0" prefWidth="409.0" style="-fx-background-color: #4682b4;">
                <children>
                   <TextField fx:id="timerField" editable="false" prefHeight="46.0" prefWidth="466.0" style="-fx-alignment: center; -fx-font-size: 25;">
@@ -33,208 +33,148 @@
             <Pane prefHeight="668.0" prefWidth="308.0">
                <children>
                   <Text layoutX="57.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page table of current process" underline="true" />
-                  <TextArea fx:id="pageTableField" editable="false" layoutX="22.0" layoutY="45.0" prefHeight="449.0" prefWidth="261.0" />
+                  <TextArea fx:id="pageTableField" editable="false" layoutX="22.0" layoutY="45.0" prefHeight="587.0" prefWidth="261.0" />
                </children></Pane>
             <Pane prefHeight="668.0" prefWidth="560.0">
                <children>
-                  <ScrollPane layoutX="35.0" layoutY="124.0" prefHeight="541.0" prefWidth="487.0">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="857.0" prefWidth="468.0">
+                  <GridPane layoutX="55.0" layoutY="239.0" prefHeight="403.0" prefWidth="451.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="340.0" minWidth="71.0" prefWidth="171.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="0.0" prefWidth="169.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="62.0" minHeight="62.0" prefHeight="62.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="225.0" minHeight="0.0" prefHeight="68.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="68.0" minHeight="68.0" prefHeight="68.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="68.0" minHeight="68.0" prefHeight="68.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="68.0" minHeight="68.0" prefHeight="68.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="68.0" minHeight="68.0" prefHeight="68.0" vgrow="NEVER" />
+                     </rowConstraints>
+                     <children>
+                        <Pane layoutX="247.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;">
                            <children>
-                              <GridPane layoutX="1.0" prefHeight="687.0" prefWidth="474.0" style="-fx-border-color: ;">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints maxHeight="140.0" minHeight="140.0" prefHeight="140.0" vgrow="NEVER" />
-                                    <RowConstraints maxHeight="206.0" minHeight="140.0" prefHeight="140.0" vgrow="NEVER" />
-                                    <RowConstraints maxHeight="206.0" minHeight="140.0" prefHeight="140.0" vgrow="NEVER" />
-                                    <RowConstraints maxHeight="140.0" minHeight="140.0" prefHeight="140.0" vgrow="NEVER" />
-                                    <RowConstraints maxHeight="140.0" minHeight="140.0" prefHeight="140.0" vgrow="NEVER" />
-                                    <RowConstraints maxHeight="140.0" minHeight="140.0" prefHeight="140.0" vgrow="NEVER" />
-                                 </rowConstraints>
-                                 <children>
-                                    <Pane prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;">
-                                       <children>
-                                          <Text layoutX="9.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Present Bit:" />
-                                          <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
-                                          <Text fx:id="pid" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
-                                          <Text fx:id="presBit" layoutX="94.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Bit:" />
-                                          <Text fx:id="modifyBit" layoutX="94.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Access Time:" />
-                                          <Text fx:id="lacBit" layoutX="128.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frame Number:" />
-                                          <Text fx:id="framNrBit" layoutX="121.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                       </children>
-                                    </Pane>
-                                    <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1">
-                                       <children>
-                                          <Text layoutX="9.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Present Bit:" />
-                                          <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
-                                          <Text fx:id="pid1" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
-                                          <Text fx:id="presBit1" layoutX="94.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Bit:" />
-                                          <Text fx:id="modifyBit1" layoutX="94.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Access Time:" />
-                                          <Text fx:id="lacBit1" layoutX="128.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frame Number:" />
-                                          <Text fx:id="framNrBit1" layoutX="121.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                       </children>
-                                    </Pane>
-                                    <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.rowIndex="1">
-                                       <children>
-                                          <Text layoutX="9.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Present Bit:" />
-                                          <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
-                                          <Text fx:id="pid2" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
-                                          <Text fx:id="presBit2" layoutX="94.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Bit:" />
-                                          <Text fx:id="modifyBit2" layoutX="94.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Access Time:" />
-                                          <Text fx:id="lacBit2" layoutX="128.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frame Number:" />
-                                          <Text fx:id="framNrBit2" layoutX="121.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                       </children>
-                                    </Pane>
-                                    <Pane layoutX="10.0" layoutY="148.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                       <children>
-                                          <Text layoutX="9.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Present Bit:" />
-                                          <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
-                                          <Text fx:id="pid21" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
-                                          <Text fx:id="presBit21" layoutX="94.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Bit:" />
-                                          <Text fx:id="modifyBit21" layoutX="94.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Access Time:" />
-                                          <Text fx:id="lacBit21" layoutX="128.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frame Number:" />
-                                          <Text fx:id="framNrBit21" layoutX="121.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                       </children>
-                                    </Pane>
-                                    <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.rowIndex="2">
-                                       <children>
-                                          <Text layoutX="9.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Present Bit:" />
-                                          <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
-                                          <Text fx:id="pid3" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
-                                          <Text fx:id="presBit3" layoutX="94.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Bit:" />
-                                          <Text fx:id="modifyBit3" layoutX="94.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Access Time:" />
-                                          <Text fx:id="lacBit3" layoutX="128.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frame Number:" />
-                                          <Text fx:id="framNrBit3" layoutX="121.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                       </children>
-                                    </Pane>
-                                    <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                       <children>
-                                          <Text layoutX="9.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Present Bit:" />
-                                          <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
-                                          <Text fx:id="pid4" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
-                                          <Text fx:id="presBit4" layoutX="94.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Bit:" />
-                                          <Text fx:id="modifyBit4" layoutX="94.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Access Time:" />
-                                          <Text fx:id="lacBit4" layoutX="128.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frame Number:" />
-                                          <Text fx:id="framNrBit4" layoutX="121.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                       </children>
-                                    </Pane>
-                                    <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.rowIndex="3">
-                                       <children>
-                                          <Text layoutX="9.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Present Bit:" />
-                                          <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
-                                          <Text fx:id="pid5" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
-                                          <Text fx:id="presBit5" layoutX="94.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Bit:" />
-                                          <Text fx:id="modifyBit5" layoutX="94.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Access Time:" />
-                                          <Text fx:id="lacBit5" layoutX="128.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frame Number:" />
-                                          <Text fx:id="framNrBit5" layoutX="121.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                       </children>
-                                    </Pane>
-                                    <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                       <children>
-                                          <Text layoutX="9.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Present Bit:" />
-                                          <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
-                                          <Text fx:id="pid6" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
-                                          <Text fx:id="presBit6" layoutX="94.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Bit:" />
-                                          <Text fx:id="modifyBit6" layoutX="94.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Access Time:" />
-                                          <Text fx:id="lacBit6" layoutX="128.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frame Number:" />
-                                          <Text fx:id="framNrBit6" layoutX="121.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                       </children>
-                                    </Pane>
-                                    <Pane layoutX="10.0" layoutY="430.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.rowIndex="4">
-                                       <children>
-                                          <Text layoutX="9.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Present Bit:" />
-                                          <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
-                                          <Text fx:id="pid51" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
-                                          <Text fx:id="presBit51" layoutX="94.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Bit:" />
-                                          <Text fx:id="modifyBit51" layoutX="94.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Access Time:" />
-                                          <Text fx:id="lacBit51" layoutX="128.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frame Number:" />
-                                          <Text fx:id="framNrBit51" layoutX="121.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                       </children>
-                                    </Pane>
-                                    <Pane layoutX="10.0" layoutY="570.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                       <children>
-                                          <Text layoutX="9.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Present Bit:" />
-                                          <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
-                                          <Text fx:id="pid511" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
-                                          <Text fx:id="presBit511" layoutX="94.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Bit:" />
-                                          <Text fx:id="modifyBit511" layoutX="94.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Access Time:" />
-                                          <Text fx:id="lacBit511" layoutX="128.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frame Number:" />
-                                          <Text fx:id="framNrBit511" layoutX="121.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                       </children>
-                                    </Pane>
-                                    <Pane layoutX="10.0" layoutY="290.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.rowIndex="5">
-                                       <children>
-                                          <Text layoutX="9.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Present Bit:" />
-                                          <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
-                                          <Text fx:id="pid31" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
-                                          <Text fx:id="presBit31" layoutX="94.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Bit:" />
-                                          <Text fx:id="modifyBit31" layoutX="94.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Access Time:" />
-                                          <Text fx:id="lacBit31" layoutX="128.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frame Number:" />
-                                          <Text fx:id="framNrBit31" layoutX="121.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                       </children>
-                                    </Pane>
-                                    <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                                       <children>
-                                          <Text layoutX="9.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Present Bit:" />
-                                          <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
-                                          <Text fx:id="pid7" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
-                                          <Text fx:id="presBit7" layoutX="94.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Bit:" />
-                                          <Text fx:id="modifyBit7" layoutX="94.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Access Time:" />
-                                          <Text fx:id="lacBit7" layoutX="128.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="14.0" />
-                                          <Text layoutX="9.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frame Number:" />
-                                          <Text fx:id="framNrBit7" layoutX="121.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                                       </children>
-                                    </Pane>
-                                 </children>
-                              </GridPane>
+                              <Text layoutX="51.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
+                              <Text fx:id="pid" disable="true" layoutX="76.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="55.0" />
+                              <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
+                              <Text fx:id="pageNr" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                            </children>
-                        </AnchorPane>
-                    </content>
-                  </ScrollPane>
+                        </Pane>
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1">
+                           <children>
+                              <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
+                              <Text fx:id="pid1" disable="true" layoutX="87.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="55.0" />
+                              <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
+                              <Text fx:id="pageNr1" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.rowIndex="1">
+                           <children>
+                              <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
+                              <Text fx:id="pid2" disable="true" layoutX="86.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="55.0" />
+                              <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
+                              <Text fx:id="pageNr2" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
+                              <Text fx:id="pid3" disable="true" layoutX="85.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="55.0" />
+                              <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
+                              <Text fx:id="pageNr3" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.rowIndex="2">
+                           <children>
+                              <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
+                              <Text fx:id="pid4" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
+                              <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
+                              <Text fx:id="pageNr4" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="278.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <children>
+                              <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
+                              <Text fx:id="pid5" disable="true" layoutX="87.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="55.0" />
+                              <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
+                              <Text fx:id="pageNr5" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.rowIndex="3">
+                           <children>
+                              <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
+                              <Text fx:id="pid6" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
+                              <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
+                              <Text fx:id="pageNr6" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <children>
+                              <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
+                              <Text fx:id="pid7" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
+                              <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
+                              <Text fx:id="pageNr7" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.rowIndex="4">
+                           <children>
+                              <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
+                              <Text fx:id="pid8" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
+                              <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
+                              <Text fx:id="pageNr8" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <children>
+                              <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
+                              <Text fx:id="pid9" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
+                              <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
+                              <Text fx:id="pageNr9" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.rowIndex="5">
+                           <children>
+                              <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
+                              <Text fx:id="pid10" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
+                              <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
+                              <Text fx:id="pageNr10" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                           <children>
+                              <Text layoutX="50.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
+                              <Text fx:id="pid11" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
+                              <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
+                              <Text fx:id="pageNr11" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </GridPane>
+                  <Text layoutX="267.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RAM" underline="true" />
                </children>
             </Pane>
             <Pane prefHeight="539.0" prefWidth="296.0">
                <children>
-                  <Text layoutX="112.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Instruction" underline="true" />
-                  <VBox layoutX="26.0" layoutY="58.0" prefHeight="434.0" prefWidth="248.0" />
+                  <Text layoutX="106.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Instruction" underline="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
+                  <VBox layoutX="26.0" layoutY="58.0" prefHeight="243.0" prefWidth="248.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Current:" />
+                        <TextArea fx:id="currentInstructionField" editable="false" prefHeight="88.0" prefWidth="248.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Next:">
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <TextArea fx:id="nextInstructionField" editable="false" prefHeight="99.0" prefWidth="248.0" />
+                     </children></VBox>
+                  <Text layoutX="99.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Real Address" underline="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="realAddressField" layoutX="74.0" layoutY="334.0" />
                </children>
             </Pane>
          </children>
