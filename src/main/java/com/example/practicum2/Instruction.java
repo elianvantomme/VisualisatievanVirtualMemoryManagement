@@ -44,4 +44,5 @@ public class Instruction {
         return "process ID: "+pId+", operation: "+operation+"\n"
                 +"virtual address: "+virtualAddress;
     }
+
 }

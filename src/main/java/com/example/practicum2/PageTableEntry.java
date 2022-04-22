@@ -5,6 +5,16 @@ public class PageTableEntry {
     private int modifyBit;
     private int lastAccessTime;
     private int frameNummer;
+    private int pageNumber;
+
+    public PageTableEntry(int pageNumber){
+        presentBit = 0;
+        modifyBit = 0;
+        lastAccessTime = -1;
+        frameNummer = -1;
+        this.pageNumber = pageNumber;
+
+    }
 
     public void setFrameNummer(int frameNummer) {
         this.frameNummer = frameNummer;
@@ -23,9 +33,10 @@ public class PageTableEntry {
     }
 
     public String toString(){
-        return "Present Bit: "+presentBit+"\n"+
-                "Modify Bit: "+modifyBit+"\n"+
-                "Last Access Time: "+lastAccessTime+"\n"+
-                "Frame Number: "+frameNummer;
+        return "Page: "+pageNumber+
+                " |\t Frame Number: "+frameNummer+"\t"+
+                "Present Bit: "+presentBit+"\t"+
+                "Modify Bit: "+modifyBit+"\t"+
+                "Last Access Time: "+lastAccessTime;
     }
 }
