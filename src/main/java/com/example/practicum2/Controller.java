@@ -20,8 +20,8 @@ public class Controller {
     XMLParser xmlParser = new XMLParser("virtual memory/"+instructions);
 
     public int calculateRealAddress(int virtualAddress){
-        int VPN = virtualAddress / 4048;
-        int offset = virtualAddress - VPN * 4048;
+        int VPN = virtualAddress / 4096;
+        int offset = virtualAddress - VPN * 4096;
         return VPN;
     }
 
