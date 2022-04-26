@@ -35,6 +35,7 @@ public class Process {
     public PageTableEntry getEntry(int placeOfPageTableEntry) {
         return pageTable.get(placeOfPageTableEntry);
     }
+
 }
 
 
