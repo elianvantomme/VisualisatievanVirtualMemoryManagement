@@ -6,13 +6,12 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class Controller {
     private int clock = 0;
     private int counter = 0 ;
-    private ArrayList<Instruction> mainMemory;
+    private ArrayList<Instruction> instructionList;
     private ArrayList<Process> processes;
     private RAM RAM;
     private String instructions = "Instructions_20000_20.xml";
@@ -112,8 +111,8 @@ public class Controller {
         timerField.setText(String.valueOf(clock));
         if(counter < amountOfInstructions-1){
 
-            Instruction currentInstruction = mainMemory.get(counter);
-            Instruction nextInstruction = mainMemory.get(counter+1);
+            Instruction currentInstruction = instructionList.get(counter);
+            Instruction nextInstruction = instructionList.get(counter+1);
 
             currentInstructionField.setText(currentInstruction.toString());
             nextInstructionField.setText(nextInstruction.toString());
@@ -163,11 +162,11 @@ public class Controller {
         String[] subStrings = instructions.split("_");
         amountOfInstructions = Integer.parseInt(subStrings[1]);
         amountOfProcesses = Integer.parseInt(subStrings[2].split("\\.")[0]);
-        mainMemory = xmlParser.readProcesses();
+        instructionList = xmlParser.readProcesses();
         processes = new ArrayList<>();
         RAM = new RAM();
 
-
+        System.out.println(instructionList);
     }
 
 }
