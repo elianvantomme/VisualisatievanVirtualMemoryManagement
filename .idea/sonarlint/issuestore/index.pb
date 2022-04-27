@@ -9,5 +9,3 @@ N
 src/main/java/module-info.java,1\c\1c89a5491fbfda3fb050196d6a239f20200296e7
 c
 3src/main/java/com/example/practicum2/XMLParser.java,f\e\feb7915db823ba326b45f839e9e9905d80d393a8
-]
--src/main/java/com/example/practicum2/RAM.java,d\c\dc114c65a1f68e2de3aef282115e0d79f8ca0787

@@ -30,6 +30,7 @@ public class RAM {
             }
             //TODO tonen dat de pages ook in het RAM te voorschijnkomen
 
+
         }
 
     }

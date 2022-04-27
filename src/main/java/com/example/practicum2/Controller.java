@@ -168,10 +168,8 @@ public class Controller {
             }else if(Objects.equals(currentInstruction.getOperation(), "Write")){
                 printPageTable(processes.get(currentInstruction.getpId()));
 
-            }else if(Objects.equals(currentInstruction.getOperation(), "Stop")){
+            }else if(Objects.equals(currentInstruction.getOperation(), "Stop")) {
                 printPageTable(processes.get(currentInstruction.getpId()));
-
-            }else{
 
             }
 
