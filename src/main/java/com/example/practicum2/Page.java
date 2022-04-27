@@ -10,7 +10,7 @@ public class Page {
     }
 
     public String toString(){
-        return "Pid: "+processId+"\t\t\t"+"\n"+
+        return "Pid: "+processId+"\t\t\t frame: "+"\n"+
                 "Page Nr: "+pageNr;
     }
 
