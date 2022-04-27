@@ -31,7 +31,7 @@ public class RAM {
                 Page page = new Page(process.getProcessID(), i);
                 pagesInRam.add(page);
             }
-            //TODO tonen dat de pages ook in het RAM te voorschijnkomen
+
         }
     }
     public Page getEntry(int page){

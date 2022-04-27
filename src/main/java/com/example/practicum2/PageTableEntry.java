@@ -18,6 +18,30 @@ public class PageTableEntry {
 
     }
 
+    public int getPresentBit() {
+        return presentBit;
+    }
+
+    public int getModifyBit() {
+        return modifyBit;
+    }
+
+    public int getLastAccessTime() {
+        return lastAccessTime;
+    }
+
+    public int getFrameNummer() {
+        return frameNummer;
+    }
+
+    public int getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
+    }
+
     public void setFrameNummer(int frameNummer) {
         this.frameNummer = frameNummer;
     }
@@ -32,10 +56,6 @@ public class PageTableEntry {
 
     public void setPresentBit(int presentBit) {
         this.presentBit = presentBit;
-    }
-
-    public int getFrameNummer() {
-        return frameNummer;
     }
 
     public String toString(){
