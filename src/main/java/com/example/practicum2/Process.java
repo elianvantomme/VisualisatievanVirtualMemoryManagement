@@ -44,6 +44,10 @@ public class Process {
         }
 
     }
+
+    public void deletePageTable() {
+
+    }
 }
 
 

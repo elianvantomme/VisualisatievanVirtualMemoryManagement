@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -57,18 +58,24 @@
                         </Text>
                         <TextArea fx:id="nextInstructionField" editable="false" prefHeight="81.0" prefWidth="248.0" />
                      </children></VBox>
-                  <Text layoutX="108.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Real Address" underline="true">
+                  <Text layoutX="210.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Real Address" underline="true">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="realAddressField" layoutX="85.0" layoutY="332.0" />
+                  <TextField fx:id="realAddressField" layoutX="190.0" layoutY="334.0" prefHeight="31.0" prefWidth="143.0" />
+                  <Text layoutX="31.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Virtual page Nr" underline="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="virtualPageNumberText" layoutX="88.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
                </children>
             </Pane>
             <Pane prefHeight="684.0" prefWidth="534.0">
                <children>
                   <Text layoutX="166.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page table of current process, Pid:" underline="true" />
-                  <Text fx:id="currentProcessPageTable" layoutX="354.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                  <Text fx:id="currentProcessPageTable" layoutX="407.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
                   <ScrollPane layoutX="39.0" layoutY="61.0" prefHeight="394.0" prefWidth="458.0">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="706.0" prefWidth="533.0">
@@ -78,15 +85,18 @@
                                     <TextArea fx:id="pageEntry0" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry1" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry2" prefHeight="49.0" prefWidth="445.0" />
+                                    <TextArea fx:id="pageEntry3" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry4" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry5" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry6" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry7" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry8" prefHeight="49.0" prefWidth="445.0" />
-                                    <TextArea fx:id="pageEntry3" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry9" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry10" prefHeight="49.0" prefWidth="445.0" />
-                                    <TextArea fx:id="pageEntry11" prefHeight="49.0" prefWidth="445.0" />
+                                    <TextArea fx:id="pageEntry11" prefHeight="49.0" prefWidth="445.0">
+                                       <padding>
+                                          <Insets right="10.0" />
+                                       </padding></TextArea>
                                     <TextArea fx:id="pageEntry12" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry13" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry14" prefHeight="49.0" prefWidth="445.0" />
@@ -100,7 +110,7 @@
                </children></Pane>
             <Pane prefHeight="684.0" prefWidth="461.0">
                <children>
-                  <GridPane layoutX="30.0" layoutY="123.0" prefHeight="403.0" prefWidth="378.0">
+                  <GridPane layoutX="14.0" layoutY="123.0" prefHeight="403.0" prefWidth="394.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="340.0" minWidth="71.0" prefWidth="171.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="0.0" prefWidth="169.0" />
@@ -114,18 +124,168 @@
                         <RowConstraints maxHeight="68.0" minHeight="68.0" prefHeight="68.0" vgrow="NEVER" />
                      </rowConstraints>
                      <children>
-                        <TextArea fx:id="frame0" prefHeight="200.0" prefWidth="200.0" />
-                        <TextArea fx:id="frame1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
-                        <TextArea fx:id="frame5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextArea fx:id="frame4" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
-                        <TextArea fx:id="frame3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextArea fx:id="frame2" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-                        <TextArea fx:id="frame6" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3" />
-                        <TextArea fx:id="frame7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextArea fx:id="frame8" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4" />
-                        <TextArea fx:id="frame9" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextArea fx:id="frame10" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5" />
-                        <TextArea fx:id="frame11" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <HBox>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 0:  " />
+                              <TextArea fx:id="frame0" prefHeight="200.0" prefWidth="200.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextArea>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox GridPane.columnIndex="1">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 1:  " />
+                              <TextArea fx:id="frame1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextArea>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 5:  " />
+                              <TextArea fx:id="frame5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                              </TextArea>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox GridPane.rowIndex="2">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 4:  " />
+                              <TextArea fx:id="frame4" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                              </TextArea>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 3:  " />
+                              <TextArea fx:id="frame3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextArea>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox GridPane.rowIndex="1">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 2:  " />
+                              <TextArea fx:id="frame2" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextArea>
+                           </children>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </HBox>
+                        <HBox GridPane.rowIndex="3">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 6:  " />
+                              <TextArea fx:id="frame6" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                              </TextArea>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 7:  " />
+                              <TextArea fx:id="frame7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                              </TextArea>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox GridPane.rowIndex="4">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 8:  " />
+                              <TextArea fx:id="frame8" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                              </TextArea>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 9:  " />
+                              <TextArea fx:id="frame9" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                              </TextArea>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox GridPane.rowIndex="5">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 10:  " />
+                              <TextArea fx:id="frame10" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                              </TextArea>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="5">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 11:  " />
+                              <TextArea fx:id="frame11" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                              </TextArea>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </HBox>
                      </children>
                   </GridPane>
                   <Text layoutX="203.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RAM" underline="true" />
