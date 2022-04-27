@@ -25,8 +25,8 @@ public class RAM {
         frames.remove(pageToRemove);
     }
 
-    public void insertPageInFrame(Process processToAdd, PageTableEntry pageToInsert){
-        frames.add(new Page(processToAdd.getProcessID(), pageToInsert.getPageNumber()));
+    public void insertPageInFrame(Process processToAdd, PageTableEntry pageToInsert, int frameNumber){
+        frames.add(new Page(processToAdd.getProcessID(), pageToInsert.getPageNumber(), frameNumber));
     }
 
 
@@ -41,7 +41,7 @@ public class RAM {
                 PageTableEntry pageTableEntry = pageTable.get(i);
                 pageTableEntry.setFrameNummer(i);
                 pageTableEntry.setPresentBit(1);
-                Page page = new Page(process.getProcessID(), i);
+                Page page = new Page(process.getProcessID(), i, i);
                 frames.add(page);
             }
         }
@@ -70,7 +70,8 @@ public class RAM {
                     PageTableEntry pageTableEntry = newProcessPageTable.get(j);
                     pageTableEntry.setPresentBit(1);
                     pageTableEntry.setFrameNummer(frameNumber);
-                    frames.add(new Page(process.getProcessID(), pageTableEntry.getPageNumber()));
+                    //frames.add(new Page(process.getProcessID(), pageTableEntry.getPageNumber()));
+                    insertPageInFrame(process, pageTableEntry, frameNumber);
                 }
             }
         }
@@ -112,7 +113,7 @@ public class RAM {
             PageTableEntry pageTableEntryToSwapIn = processToSwapInPageTable.get(i);
             pageTableEntryToSwapIn.setPresentBit(1);
             pageTableEntryToSwapIn.setFrameNummer(frameNumber);
-            insertPageInFrame(processToSwapIn, pageTableEntryToSwapIn);
+            insertPageInFrame(processToSwapIn, pageTableEntryToSwapIn, frameNumber);
         }
     }
 
@@ -128,6 +129,21 @@ public class RAM {
         return frames.get(page);
     }
 
+    public ArrayList<Process> getProcessesInRam() {
+        return processesInRam;
+    }
+
+    public void setProcessesInRam(ArrayList<Process> processesInRam) {
+        this.processesInRam = processesInRam;
+    }
+
+    public ArrayList<Page> getFrames() {
+        return frames;
+    }
+
+    public void setFrames(ArrayList<Page> frames) {
+        this.frames = frames;
+    }
 }
 
 
