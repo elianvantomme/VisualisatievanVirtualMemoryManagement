@@ -15,7 +15,7 @@ public class Controller {
     private ArrayList<Instruction> instructionList;
     private ArrayList<Process> processes;
     private RAM ram;
-    private String instructions = "Instructions_20000_20.xml";
+    private String instructions = "Instructions_20000_4.xml";
     private int amountOfProcesses;
     private int amountOfInstructions;
     XMLParser xmlParser = new XMLParser("virtual memory/"+instructions);
@@ -32,7 +32,7 @@ public class Controller {
             int frameNumber = process.getEntry(vpn).getFrameNummer();
             if (frameNumber == -1){
                 realAddressField.setText("PAGE FAULT");
-                int newFrameNumber =  RAM.addPageToRam(process);
+                int newFrameNumber =  ram.addPageToRam(process, vpn);
                 return String.valueOf((newFrameNumber * 4096 + offset));
             }
             return String.valueOf(frameNumber * 4096 + offset);
@@ -182,6 +182,7 @@ public class Controller {
                     process.createPageTable();
                     processes.add(process);
                     ram.addProcessToRam(process);
+                    printPageTable(processes.get(currentInstruction.getpId()));
                 }
                 case "Read" -> {
                     Process process = processes.get(currentInstruction.getpId());

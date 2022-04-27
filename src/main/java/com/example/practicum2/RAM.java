@@ -1,8 +1,8 @@
 package com.example.practicum2;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class RAM {
     private ArrayList<Process> processesInRam;
@@ -26,7 +26,7 @@ public class RAM {
     }
 
     public void insertPageInFrame(Process processToAdd, PageTableEntry pageToInsert, int frameNumber){
-        frames.add(new Page(processToAdd.getProcessID(), pageToInsert.getPageNumber(), frameNumber));
+        frames.add(new Page(processToAdd.getProcessID(), pageToInsert.getPageNumber()));
     }
 
 
@@ -62,11 +62,12 @@ public class RAM {
                     if(longestNotAccessedFrame.getModifyBit() == 1){
                         processToSwap.increaseAmountToPersistentMemory();
                     }
+                    int frameNumber = longestNotAccessedFrame.getFrameNummer();
                     longestNotAccessedFrame.setModifyBit(0);
+                    longestNotAccessedFrame.setFrameNummer(-1);
                     deletePageFromFrame(processToSwap, longestNotAccessedFrame); // delete page from RAM
 
                     //nu is er frame vrij en is voor het binnenkomende process
-                    int frameNumber = longestNotAccessedFrame.getFrameNummer();
                     PageTableEntry pageTableEntry = newProcessPageTable.get(j);
                     pageTableEntry.setPresentBit(1);
                     pageTableEntry.setFrameNummer(frameNumber);
@@ -145,34 +146,41 @@ public class RAM {
         this.frames = frames;
     }
 
-    public int addPageToRam(Process process){
+    public int addPageToRam(Process process, int vpn){
         int frameNumber;
         if(processesInRam.size() <= 3){
-            frameNumber = addPageToNotFullRam();
+            frameNumber = addPageToNotFullRam(process, vpn);
         }
         else {
-            frameNumber = addPageToFullRam();
+            frameNumber = addPageToFullRam(process);
         }
 
         return frameNumber;
     }
 
-    private int addPageToFullRam() {
-        int frameNumber;
+    private int addPageToFullRam(Process process) {
+        int frameNumber = 0;
 
 
         return frameNumber;
     }
 
-    private int addPageToNotFullRam() {
+    private int addPageToNotFullRam(Process process, int vpn) {
         int frameNumber;
-        if(processesInRam.size() == 1) {
-
+        List<PageTableEntry> leastAccessedPages = process.getPageTable().stream().filter(pageTableEntry -> pageTableEntry.getFrameNummer() != -1).sorted(Comparator.comparingInt(PageTableEntry::getLastAccessTime)).toList();
+        PageTableEntry leastAccessedPage = leastAccessedPages.get(0);
+        if (leastAccessedPage.getModifyBit() == 1){
+            process.increaseAmountToPersistentMemory();
         }
-        else {
+        frameNumber = leastAccessedPage.getFrameNummer();
+        leastAccessedPage.setFrameNummer(-1);
+        leastAccessedPage.setPresentBit(0);
 
-        }
+        PageTableEntry pageTableEntry = process.getEntry(vpn);
+        pageTableEntry.setFrameNummer(frameNumber);
+        pageTableEntry.setPresentBit(1);
 
+        frames.get(frameNumber).setPageNr(vpn);
         return frameNumber;
     }
 }

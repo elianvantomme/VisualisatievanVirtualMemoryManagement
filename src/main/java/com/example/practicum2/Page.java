@@ -5,10 +5,9 @@ public class Page {
     private int pageNr;
     private int frameNr;
 
-    public Page(int processId, int pageNr, int frameNr){
+    public Page(int processId, int pageNr){
         this.processId = processId;
         this.pageNr = pageNr;
-        this.frameNr = frameNr;
     }
 
     public String toString(){
