@@ -19,10 +19,19 @@ public class Controller {
     private int amountOfInstructions;
     XMLParser xmlParser = new XMLParser("virtual memory/"+instructions);
 
-    public int calculateRealAddress(int virtualAddress){
-        int VPN = virtualAddress / 4096;
-        int offset = virtualAddress - VPN * 4096;
-        return VPN;
+    public String calculateRealAddress(int virtualAddress, int processId){
+        int vpn = virtualAddress / 4096;
+        int offset = virtualAddress - vpn * 4096;
+        if (virtualAddress != 0){
+            Process process = processes.get(processId);
+            int frameNumber = process.getEntry(vpn).getFrameNummer();
+            if (frameNumber == -1){
+                realAddressField.setText("PAGE FAULT");
+                //TODO RAM voert LRU uit
+            }
+            return String.valueOf(frameNumber * 4096 + offset);
+        }
+        return "Instruction has no address";
     }
 
     private void printPageTable(Process process) {
@@ -45,44 +54,45 @@ public class Controller {
         pageEntry15.setText(process.getEntry(15).toString());
     }
     private void printRam(RAM ram){
-
+        frame0.setText(ram.getEntry(0).toString());
+        frame1.setText(ram.getEntry(1).toString());
+        frame2.setText(ram.getEntry(2).toString());
+        frame3.setText(ram.getEntry(3).toString());
+        frame4.setText(ram.getEntry(4).toString());
+        frame5.setText(ram.getEntry(5).toString());
+        frame6.setText(ram.getEntry(6).toString());
+        frame7.setText(ram.getEntry(7).toString());
+        frame8.setText(ram.getEntry(8).toString());
+        frame9.setText(ram.getEntry(9).toString());
+        frame10.setText(ram.getEntry(10).toString());
+        frame11.setText(ram.getEntry(11).toString());
     }
 
     @FXML
-    private Text frameNr0;
-
+    private TextArea frame0;
     @FXML
-    private Text frameNr1;
-
+    private TextArea frame1;
     @FXML
-    private Text frameNr10;
-
+    private TextArea frame2;
     @FXML
-    private Text frameNr11;
-
+    private TextArea frame3;
     @FXML
-    private Text frameNr2;
-
+    private TextArea frame4;
     @FXML
-    private Text frameNr3;
-
+    private TextArea frame5;
     @FXML
-    private Text frameNr4;
-
+    private TextArea frame6;
     @FXML
-    private Text frameNr5;
-
+    private TextArea frame7;
     @FXML
-    private Text frameNr6;
-
+    private TextArea frame8;
     @FXML
-    private Text frameNr7;
-
+    private TextArea frame9;
     @FXML
-    private Text frameNr8;
-
+    private TextArea frame10;
     @FXML
-    private Text frameNr9;
+    private TextArea frame11;
+
 
     @FXML
     private Text currentProcessPageTable;
@@ -153,7 +163,7 @@ public class Controller {
 
             currentInstructionField.setText(currentInstruction.toString());
             nextInstructionField.setText(nextInstruction.toString());
-            realAddressField.setText(String.valueOf(calculateRealAddress(currentInstruction.getVirtualAddress())));
+            realAddressField.setText(String.valueOf(calculateRealAddress(currentInstruction.getVirtualAddress(), currentInstruction.getpId())));
 
             if (Objects.equals(currentInstruction.getOperation(), "Start")){
                 //At startup make an page table and place the processes pages inside the RAM
@@ -173,7 +183,7 @@ public class Controller {
 
             }
 
-
+            printRam(RAM);
             clock++;
 
         }else if(counter >= amountOfInstructions-1){

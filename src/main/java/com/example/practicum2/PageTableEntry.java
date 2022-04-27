@@ -1,13 +1,15 @@
 package com.example.practicum2;
 
 public class PageTableEntry {
+    private int processID;
     private int presentBit;
     private int modifyBit;
     private int lastAccessTime;
     private int frameNummer;
     private int pageNumber;
 
-    public PageTableEntry(int pageNumber){
+    public PageTableEntry(int pageNumber, int processID){
+        this.processID = processID;
         presentBit = 0;
         modifyBit = 0;
         lastAccessTime = -1;
@@ -30,6 +32,10 @@ public class PageTableEntry {
 
     public void setPresentBit(int presentBit) {
         this.presentBit = presentBit;
+    }
+
+    public int getFrameNummer() {
+        return frameNummer;
     }
 
     public String toString(){

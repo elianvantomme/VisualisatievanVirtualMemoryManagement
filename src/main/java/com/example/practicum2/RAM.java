@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 public class RAM {
     private ArrayList<Process> processesInRam;
-    private ArrayList<PageTableEntry> pagesInRam;
+    private ArrayList<Page> pagesInRam;
 
     public RAM(){
         this.processesInRam = new ArrayList<>();
+        this.pagesInRam = new ArrayList<>();
     }
 
     public void addProcessToRam(Process process){
@@ -27,12 +28,14 @@ public class RAM {
                 PageTableEntry pageTableEntry = pageTable.get(i);
                 pageTableEntry.setFrameNummer(i);
                 pageTableEntry.setPresentBit(1);
+                Page page = new Page(process.getProcessID(), i);
+                pagesInRam.add(page);
             }
             //TODO tonen dat de pages ook in het RAM te voorschijnkomen
-
-
         }
-
+    }
+    public Page getEntry(int page){
+        return pagesInRam.get(page);
     }
 
 }

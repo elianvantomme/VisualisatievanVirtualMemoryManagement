@@ -18,7 +18,7 @@ public class Process {
 
     public void createPageTable(){
         for (int i = 0; i < 16; i++) {
-            PageTableEntry pageTableEntry = new PageTableEntry(i);
+            PageTableEntry pageTableEntry = new PageTableEntry(i, processID);
             pageTable.add(pageTableEntry);
         }
     }
