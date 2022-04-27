@@ -58,18 +58,18 @@ public class Controller {
         pageEntry15.setText(process.getEntry(15).toString());
     }
     private void printRam(RAM ram){
-        frame0.setText(ram.getEntry(0).toString());
-        frame1.setText(ram.getEntry(1).toString());
-        frame2.setText(ram.getEntry(2).toString());
-        frame3.setText(ram.getEntry(3).toString());
-        frame4.setText(ram.getEntry(4).toString());
-        frame5.setText(ram.getEntry(5).toString());
-        frame6.setText(ram.getEntry(6).toString());
-        frame7.setText(ram.getEntry(7).toString());
-        frame8.setText(ram.getEntry(8).toString());
-        frame9.setText(ram.getEntry(9).toString());
-        frame10.setText(ram.getEntry(10).toString());
-        frame11.setText(ram.getEntry(11).toString());
+        frame0.setText(ram.getFrame(0).toString());
+        frame1.setText(ram.getFrame(1).toString());
+        frame2.setText(ram.getFrame(2).toString());
+        frame3.setText(ram.getFrame(3).toString());
+        frame4.setText(ram.getFrame(4).toString());
+        frame5.setText(ram.getFrame(5).toString());
+        frame6.setText(ram.getFrame(6).toString());
+        frame7.setText(ram.getFrame(7).toString());
+        frame8.setText(ram.getFrame(8).toString());
+        frame9.setText(ram.getFrame(9).toString());
+        frame10.setText(ram.getFrame(10).toString());
+        frame11.setText(ram.getFrame(11).toString());
     }
 
     @FXML
@@ -179,6 +179,7 @@ public class Controller {
                     process.createPageTable();
                     processes.add(process);
                     ram.addProcessToRam(process);
+                    printPageTable(processes.get(currentInstruction.getpId()));
                 }
                 case "Read" -> {
                     Process process = processes.get(currentInstruction.getpId());

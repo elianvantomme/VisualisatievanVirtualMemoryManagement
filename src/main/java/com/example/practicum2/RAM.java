@@ -124,7 +124,7 @@ public class RAM {
         }
     }
 
-    public Page getEntry(int page){
+    public Page getFrame(int page){
         return frames.get(page);
     }
 
