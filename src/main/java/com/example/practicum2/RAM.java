@@ -2,6 +2,7 @@ package com.example.practicum2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RAM {
     private ArrayList<Process> processesInRam;
@@ -10,6 +11,22 @@ public class RAM {
     public RAM(){
         this.processesInRam = new ArrayList<>();
         this.frames = new ArrayList<>();
+    }
+
+
+    public void deletePageFromFrame(Process processToDelete, PageTableEntry pageToDelete){
+        Page pageToRemove=null;
+        for(Page p : frames){
+            if(p.getProcessId()==processToDelete.getProcessID() && p.getPageNr()==pageToDelete.getPageNumber()){
+                pageToRemove = p;
+                break;
+            }
+        }
+        frames.remove(pageToRemove);
+    }
+
+    public void insertPageInFrame(Process processToAdd, PageTableEntry pageToInsert){
+        frames.add(new Page(processToAdd.getProcessID(), pageToInsert.getPageNumber()));
     }
 
 
@@ -46,14 +63,7 @@ public class RAM {
                         processToSwap.increaseAmountToPersistentMemory();
                     }
                     longestNotAccessedFrame.setModifyBit(0);
-                    Page pageToRemove=null;
-                    for(Page p : frames){
-                        if(p.getProcessId()==processToSwap.getProcessID() && p.getPageNr()==longestNotAccessedFrame.getPageNumber()){
-                            pageToRemove = p;
-                            break;
-                        }
-                    }
-                    frames.remove(pageToRemove);
+                    deletePageFromFrame(processToSwap, longestNotAccessedFrame); // delete page from RAM
 
                     //nu is er frame vrij en is voor het binnenkomende process
                     int frameNumber = longestNotAccessedFrame.getFrameNummer();
@@ -66,8 +76,44 @@ public class RAM {
         }
     }
 
-    public void addProcessToFullRam(Process process){
+    public void addProcessToFullRam(Process processToSwapIn){
+        //find process to swap out -> process with least recently used frame
+        Process processToRemove = null;
+        int leastRecentlyUsed = Integer.MAX_VALUE;
+        for(Process p : processesInRam){
+            List<PageTableEntry> frames = p.getPageTable().stream()
+                    .filter(pageTableEntry -> pageTableEntry.getPresentBit()==1)
+                    .toList();
+            for(PageTableEntry frame : frames){
+                if(frame.getLastAccessTime() < leastRecentlyUsed){
+                    leastRecentlyUsed = frame.getLastAccessTime();
+                    processToRemove = p;
+                }
+            }
+        }
 
+        //now swap out all the frames that this process to remove has
+        List<PageTableEntry> pagesToSwapOut = processToRemove.getPageTable().stream()
+                .filter(pageTableEntry -> pageTableEntry.getPresentBit()==1)
+                .toList();
+
+        List<PageTableEntry> processToSwapInPageTable = processToSwapIn.getPageTable();
+        int i=0;
+        for(PageTableEntry pageToSwapOut : pagesToSwapOut){
+            //swap out page from pageToSwap to disk
+            pageToSwapOut.setFrameNummer(-1); //TODO hoeft dit?
+            if(pageToSwapOut.getModifyBit()==1) processToRemove.increaseAmountToPersistentMemory();
+            pageToSwapOut.setModifyBit(0);
+            pageToSwapOut.setPresentBit(0);
+            deletePageFromFrame(processToRemove, pageToSwapOut);
+
+            //swap in page from new process to RAM
+            int frameNumber = pageToSwapOut.getFrameNummer();
+            PageTableEntry pageTableEntryToSwapIn = processToSwapInPageTable.get(i);
+            pageTableEntryToSwapIn.setPresentBit(1);
+            pageTableEntryToSwapIn.setFrameNummer(frameNumber);
+            insertPageInFrame(processToSwapIn, pageTableEntryToSwapIn);
+        }
     }
 
     public void addProcessToRam(Process process){
