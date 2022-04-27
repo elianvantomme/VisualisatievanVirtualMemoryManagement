@@ -35,6 +35,15 @@ public class Process {
         return pageTable.get(placeOfPageTableEntry);
     }
 
+    public void editPageTableEntry(int vpn, int clock, String operation) {
+        if (operation.equals("Read")){
+            pageTable.get(vpn).setLastAccessTime(clock);
+        } else if(operation.equals("Write")){
+            pageTable.get(vpn).setLastAccessTime(clock);
+            pageTable.get(vpn).setModifyBit(1);
+        }
+
+    }
 }
 
 
