@@ -19,11 +19,15 @@ public class Controller {
     private int amountOfInstructions;
     XMLParser xmlParser = new XMLParser("virtual memory/"+instructions);
 
-    public String calculateRealAddress(int virtualAddress, int processId){
-        int vpn = virtualAddress / 4096;
+    public int calculateVPN(int virtualAddress){
+        return virtualAddress / 4096;
+    }
+
+    public String calculateRealAddress(int virtualAddress, int pid){
+        int vpn = calculateVPN(virtualAddress);
         int offset = virtualAddress - vpn * 4096;
         if (virtualAddress != 0){
-            Process process = processes.get(processId);
+            Process process = processes.get(pid);
             int frameNumber = process.getEntry(vpn).getFrameNummer();
             if (frameNumber == -1){
                 realAddressField.setText("PAGE FAULT");
@@ -160,27 +164,37 @@ public class Controller {
 
             Instruction currentInstruction = instructionList.get(counter);
             Instruction nextInstruction = instructionList.get(counter+1);
-
+            String operation = currentInstruction.getOperation();
             currentInstructionField.setText(currentInstruction.toString());
             nextInstructionField.setText(nextInstruction.toString());
-            realAddressField.setText(String.valueOf(calculateRealAddress(currentInstruction.getVirtualAddress(), currentInstruction.getpId())));
+            realAddressField.setText(calculateRealAddress(currentInstruction.getVirtualAddress(), currentInstruction.getpId()));
 
-            if (Objects.equals(currentInstruction.getOperation(), "Start")){
-                //At startup make an page table and place the processes pages inside the RAM
-                Process process = new Process(currentInstruction.getpId());
-                process.createPageTable();
-                processes.add(process);
-                RAM.addProcessToRam(process);
-
-            }else if(Objects.equals(currentInstruction.getOperation(), "Read")){
-                printPageTable(processes.get(currentInstruction.getpId()));
-
-            }else if(Objects.equals(currentInstruction.getOperation(), "Write")){
-                printPageTable(processes.get(currentInstruction.getpId()));
-
-            }else if(Objects.equals(currentInstruction.getOperation(), "Stop")) {
-                printPageTable(processes.get(currentInstruction.getpId()));
-
+            switch (operation) {
+                case "Start" -> {
+                    //At startup make an page table and place the processes pages inside the RAM
+                    Process process = new Process(currentInstruction.getpId());
+                    process.createPageTable();
+                    processes.add(process);
+                    RAM.addProcessToRam(process);
+                }
+                case "Read" -> {
+                    Process process = processes.get(currentInstruction.getpId());
+                    int virtualAddress = currentInstruction.getVirtualAddress();
+                    int vpn = calculateVPN(virtualAddress);
+                    calculateRealAddress(currentInstruction.getVirtualAddress(), process.getProcessID());
+                    process.editPageTableEntry(vpn, clock, "Read");
+                    printPageTable(processes.get(currentInstruction.getpId()));
+                }
+                case "Write" -> {
+                    Process process = processes.get(currentInstruction.getpId());
+                    int virtualAddress = currentInstruction.getVirtualAddress();
+                    int vpn = calculateVPN(virtualAddress);
+                    calculateRealAddress(currentInstruction.getVirtualAddress(), process.getProcessID());
+                    process.editPageTableEntry(vpn, clock, "Write");
+                    printPageTable(processes.get(currentInstruction.getpId()));
+                }
+                case "Stop" -> printPageTable(processes.get(currentInstruction.getpId()));
+                default -> throw new IllegalStateException("Unexpected value: " + operation);
             }
 
             printRam(RAM);
