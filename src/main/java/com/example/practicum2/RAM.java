@@ -2,7 +2,6 @@ package com.example.practicum2;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class RAM {
     private ArrayList<Process> processesInRam;
@@ -97,23 +96,6 @@ public class RAM {
                 .filter(pageTableEntry -> pageTableEntry.getPresentBit()==1)
                 .toList();
 
-        List<PageTableEntry> processToSwapInPageTable = processToSwapIn.getPageTable();
-        int i=0;
-        for(PageTableEntry pageToSwapOut : pagesToSwapOut){
-            //swap out page from pageToSwap to disk
-            pageToSwapOut.setFrameNummer(-1); //TODO hoeft dit?
-            if(pageToSwapOut.getModifyBit()==1) processToRemove.increaseAmountToPersistentMemory();
-            pageToSwapOut.setModifyBit(0);
-            pageToSwapOut.setPresentBit(0);
-            deletePageFromFrame(processToRemove, pageToSwapOut);
-
-            //swap in page from new process to RAM
-            int frameNumber = pageToSwapOut.getFrameNummer();
-            PageTableEntry pageTableEntryToSwapIn = processToSwapInPageTable.get(i);
-            pageTableEntryToSwapIn.setPresentBit(1);
-            pageTableEntryToSwapIn.setFrameNummer(frameNumber);
-            insertPageInFrame(processToSwapIn, pageTableEntryToSwapIn);
-        }
     }
 
     public void addProcessToRam(Process process){
@@ -128,8 +110,36 @@ public class RAM {
         return frames.get(page);
     }
 
+    public int addPageToRam(Process process){
+        int frameNumber;
+        if(processesInRam.size() <= 3){
+            frameNumber = addPageToNotFullRam();
+        }
+        else {
+            frameNumber = addPageToFullRam();
+        }
+
+        return frameNumber;
+    }
+
+    private int addPageToFullRam() {
+        int frameNumber;
+
+
+        return frameNumber;
+    }
+
+    private int addPageToNotFullRam() {
+        int frameNumber;
+        if(processesInRam.size() == 1) {
+
+        }
+        else {
+
+        }
+
+        return frameNumber;
+    }
+
+
 }
-
-
-
-

@@ -31,7 +31,8 @@ public class Controller {
             int frameNumber = process.getEntry(vpn).getFrameNummer();
             if (frameNumber == -1){
                 realAddressField.setText("PAGE FAULT");
-                //TODO RAM voert LRU uit
+                int newFrameNumber =  RAM.addPageToRam(process);
+                return String.valueOf((newFrameNumber * 4096 + offset));
             }
             return String.valueOf(frameNumber * 4096 + offset);
         }
