@@ -2,6 +2,7 @@ package com.example.practicum2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RAM {
     private ArrayList<Process> processesInRam;
@@ -24,8 +25,8 @@ public class RAM {
         frames.remove(pageToRemove);
     }
 
-    public void insertPageInFrame(Process processToAdd, PageTableEntry pageToInsert){
-        frames.add(new Page(processToAdd.getProcessID(), pageToInsert.getPageNumber()));
+    public void insertPageInFrame(Process processToAdd, PageTableEntry pageToInsert, int frameNumber){
+        frames.add(new Page(processToAdd.getProcessID(), pageToInsert.getPageNumber(), frameNumber));
     }
 
 
@@ -69,7 +70,8 @@ public class RAM {
                     PageTableEntry pageTableEntry = newProcessPageTable.get(j);
                     pageTableEntry.setPresentBit(1);
                     pageTableEntry.setFrameNummer(frameNumber);
-                    frames.add(new Page(process.getProcessID(), pageTableEntry.getPageNumber()));
+                    //frames.add(new Page(process.getProcessID(), pageTableEntry.getPageNumber()));
+                    insertPageInFrame(process, pageTableEntry, frameNumber);
                 }
             }
         }
@@ -96,6 +98,23 @@ public class RAM {
                 .filter(pageTableEntry -> pageTableEntry.getPresentBit()==1)
                 .toList();
 
+        List<PageTableEntry> processToSwapInPageTable = processToSwapIn.getPageTable();
+        int i=0;
+        for(PageTableEntry pageToSwapOut : pagesToSwapOut){
+            //swap out page from pageToSwap to disk
+            pageToSwapOut.setFrameNummer(-1); //TODO hoeft dit?
+            if(pageToSwapOut.getModifyBit()==1) processToRemove.increaseAmountToPersistentMemory();
+            pageToSwapOut.setModifyBit(0);
+            pageToSwapOut.setPresentBit(0);
+            deletePageFromFrame(processToRemove, pageToSwapOut);
+
+            //swap in page from new process to RAM
+            int frameNumber = pageToSwapOut.getFrameNummer();
+            PageTableEntry pageTableEntryToSwapIn = processToSwapInPageTable.get(i);
+            pageTableEntryToSwapIn.setPresentBit(1);
+            pageTableEntryToSwapIn.setFrameNummer(frameNumber);
+            insertPageInFrame(processToSwapIn, pageTableEntryToSwapIn, frameNumber);
+        }
     }
 
     public void addProcessToRam(Process process){
@@ -108,6 +127,22 @@ public class RAM {
 
     public Page getEntry(int page){
         return frames.get(page);
+    }
+
+    public ArrayList<Process> getProcessesInRam() {
+        return processesInRam;
+    }
+
+    public void setProcessesInRam(ArrayList<Process> processesInRam) {
+        this.processesInRam = processesInRam;
+    }
+
+    public ArrayList<Page> getFrames() {
+        return frames;
+    }
+
+    public void setFrames(ArrayList<Page> frames) {
+        this.frames = frames;
     }
 
     public int addPageToRam(Process process){
@@ -140,6 +175,8 @@ public class RAM {
 
         return frameNumber;
     }
-
-
 }
+
+
+
+

@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
 public class Controller {
@@ -59,6 +60,7 @@ public class Controller {
         pageEntry15.setText(process.getEntry(15).toString());
     }
     private void printRam(RAM ram){
+        ram.getFrames().sort((Page p1, Page p2) -> p1.getFrameNr() - p2.getFrameNr());
         frame0.setText(ram.getEntry(0).toString());
         frame1.setText(ram.getEntry(1).toString());
         frame2.setText(ram.getEntry(2).toString());
