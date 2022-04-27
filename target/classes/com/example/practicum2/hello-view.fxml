@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1318.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.practicum2.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1318.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.practicum2.Controller">
    <children>
       <HBox layoutY="686.0" prefHeight="74.0" prefWidth="1318.0">
          <children>
@@ -68,12 +73,12 @@
                                     <TextArea fx:id="pageEntry0" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry1" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry2" prefHeight="49.0" prefWidth="445.0" />
-                                    <TextArea fx:id="pageEntry3" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry4" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry5" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry6" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry7" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry8" prefHeight="49.0" prefWidth="445.0" />
+                                    <TextArea fx:id="pageEntry3" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry9" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry10" prefHeight="49.0" prefWidth="445.0" />
                                     <TextArea fx:id="pageEntry11" prefHeight="49.0" prefWidth="445.0" />
@@ -109,7 +114,8 @@
                               <Text layoutX="51.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pid" />
                               <Text fx:id="pid" disable="true" layoutX="76.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="55.0" />
                               <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
-                              <Text fx:id="pageNr" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                              <Text fx:id="pageNr0" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                              <Text fx:id="frameNr0" layoutX="173.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" underline="true" />
                            </children>
                         </Pane>
                         <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1">
@@ -118,6 +124,7 @@
                               <Text fx:id="pid1" disable="true" layoutX="87.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="55.0" />
                               <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
                               <Text fx:id="pageNr1" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                              <Text fx:id="frameNr1" layoutX="171.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" underline="true" />
                            </children>
                         </Pane>
                         <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.rowIndex="1">
@@ -126,6 +133,7 @@
                               <Text fx:id="pid2" disable="true" layoutX="86.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="55.0" />
                               <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
                               <Text fx:id="pageNr2" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                              <Text fx:id="frameNr2" layoutX="173.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" underline="true" />
                            </children>
                         </Pane>
                         <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -134,6 +142,7 @@
                               <Text fx:id="pid3" disable="true" layoutX="85.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="55.0" />
                               <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
                               <Text fx:id="pageNr3" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                              <Text fx:id="frameNr3" layoutX="171.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" underline="true" />
                            </children>
                         </Pane>
                         <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.rowIndex="2">
@@ -142,6 +151,7 @@
                               <Text fx:id="pid4" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
                               <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
                               <Text fx:id="pageNr4" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                              <Text fx:id="frameNr4" layoutX="173.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" underline="true" />
                            </children>
                         </Pane>
                         <Pane layoutX="10.0" layoutY="10.0" prefHeight="68.0" prefWidth="278.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -150,6 +160,7 @@
                               <Text fx:id="pid5" disable="true" layoutX="87.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="55.0" />
                               <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
                               <Text fx:id="pageNr5" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                              <Text fx:id="frameNr5" layoutX="171.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" underline="true" />
                            </children>
                         </Pane>
                         <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.rowIndex="3">
@@ -158,6 +169,7 @@
                               <Text fx:id="pid6" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
                               <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
                               <Text fx:id="pageNr6" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                              <Text fx:id="frameNr6" layoutX="173.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6" underline="true" />
                            </children>
                         </Pane>
                         <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -166,6 +178,7 @@
                               <Text fx:id="pid7" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
                               <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
                               <Text fx:id="pageNr7" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                              <Text fx:id="frameNr7" layoutX="171.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="7" underline="true" />
                            </children>
                         </Pane>
                         <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.rowIndex="4">
@@ -174,6 +187,7 @@
                               <Text fx:id="pid8" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
                               <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
                               <Text fx:id="pageNr8" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                              <Text fx:id="frameNr8" layoutX="173.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8" underline="true" />
                            </children>
                         </Pane>
                         <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1" GridPane.rowIndex="4">
@@ -182,6 +196,7 @@
                               <Text fx:id="pid9" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
                               <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
                               <Text fx:id="pageNr9" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                              <Text fx:id="frameNr9" layoutX="168.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9" underline="true" />
                            </children>
                         </Pane>
                         <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.rowIndex="5">
@@ -190,6 +205,7 @@
                               <Text fx:id="pid10" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
                               <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
                               <Text fx:id="pageNr10" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                              <Text fx:id="frameNr10" layoutX="170.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10" underline="true" />
                            </children>
                         </Pane>
                         <Pane layoutX="10.0" layoutY="10.0" prefHeight="142.0" prefWidth="237.0" style="-fx-border-color: #4682b4;" GridPane.columnIndex="1" GridPane.rowIndex="5">
@@ -198,6 +214,7 @@
                               <Text fx:id="pid11" disable="true" layoutX="77.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="12.0" />
                               <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Number" />
                               <Text fx:id="pageNr11" layoutX="114.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                              <Text fx:id="frameNr11" layoutX="166.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="11" underline="true" />
                            </children>
                         </Pane>
                      </children>

@@ -47,6 +47,43 @@ public class Controller {
     private void printRam(RAM ram){
 
     }
+
+    @FXML
+    private Text frameNr0;
+
+    @FXML
+    private Text frameNr1;
+
+    @FXML
+    private Text frameNr10;
+
+    @FXML
+    private Text frameNr11;
+
+    @FXML
+    private Text frameNr2;
+
+    @FXML
+    private Text frameNr3;
+
+    @FXML
+    private Text frameNr4;
+
+    @FXML
+    private Text frameNr5;
+
+    @FXML
+    private Text frameNr6;
+
+    @FXML
+    private Text frameNr7;
+
+    @FXML
+    private Text frameNr8;
+
+    @FXML
+    private Text frameNr9;
+
     @FXML
     private Text currentProcessPageTable;
     @FXML

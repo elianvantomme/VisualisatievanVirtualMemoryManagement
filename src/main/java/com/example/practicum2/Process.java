@@ -1,7 +1,6 @@
 package com.example.practicum2;
 
 import java.util.ArrayList;
-
 public class Process {
     private int processID;
     private ArrayList<PageTableEntry> pageTable;
