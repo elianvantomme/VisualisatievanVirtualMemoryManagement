@@ -13,7 +13,7 @@ public class Controller {
     private int counter = 0 ;
     private ArrayList<Instruction> instructionList;
     private ArrayList<Process> processes;
-    private RAM RAM;
+    private RAM ram;
     private String instructions = "Instructions_20000_20.xml";
     private int amountOfProcesses;
     private int amountOfInstructions;
@@ -97,6 +97,8 @@ public class Controller {
     @FXML
     private TextArea frame11;
 
+    @FXML
+    private Text virtualPageNumberText;
 
     @FXML
     private Text currentProcessPageTable;
@@ -168,6 +170,7 @@ public class Controller {
             currentInstructionField.setText(currentInstruction.toString());
             nextInstructionField.setText(nextInstruction.toString());
             realAddressField.setText(calculateRealAddress(currentInstruction.getVirtualAddress(), currentInstruction.getpId()));
+            virtualPageNumberText.setText(String.valueOf(calculateVPN(currentInstruction.getVirtualAddress())));
 
             switch (operation) {
                 case "Start" -> {
@@ -175,7 +178,7 @@ public class Controller {
                     Process process = new Process(currentInstruction.getpId());
                     process.createPageTable();
                     processes.add(process);
-                    RAM.addProcessToRam(process);
+                    ram.addProcessToRam(process);
                 }
                 case "Read" -> {
                     Process process = processes.get(currentInstruction.getpId());
@@ -193,11 +196,15 @@ public class Controller {
                     process.editPageTableEntry(vpn, clock, "Write");
                     printPageTable(processes.get(currentInstruction.getpId()));
                 }
-                case "Stop" -> printPageTable(processes.get(currentInstruction.getpId()));
+                case "Terminate" -> {
+                    Process process = processes.get(currentInstruction.getpId());
+                    process.deletePageTable();
+                    printPageTable(processes.get(currentInstruction.getpId()));
+                }
                 default -> throw new IllegalStateException("Unexpected value: " + operation);
             }
 
-            printRam(RAM);
+            printRam(ram);
             clock++;
 
         }else if(counter >= amountOfInstructions-1){
@@ -223,7 +230,7 @@ public class Controller {
         amountOfProcesses = Integer.parseInt(subStrings[2].split("\\.")[0]);
         instructionList = xmlParser.readProcesses();
         processes = new ArrayList<>();
-        RAM = new RAM();
+        ram = new RAM();
 
         System.out.println(instructionList);
     }
