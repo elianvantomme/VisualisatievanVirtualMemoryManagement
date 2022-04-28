@@ -198,6 +198,14 @@ public class RAM {
         frames.get(frameNumber).setPageNr(vpn);
         return frameNumber;
     }
+
+    @Override
+    public String toString() {
+        return "RAM{" +
+                "processesInRam=" + processesInRam +
+                ", frames=" + frames +
+                '}';
+    }
 }
 
 
