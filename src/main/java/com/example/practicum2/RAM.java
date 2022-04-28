@@ -3,38 +3,81 @@ package com.example.practicum2;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Queue;
 
 public class RAM {
     private ArrayList<Process> processesInRam;
     private ArrayList<Page> frames;
 
-    public RAM(){
+    private Queue<Process> queue;
+
+    public RAM() {
         this.processesInRam = new ArrayList<>();
         this.frames = new ArrayList<>();
     }
 
-    public void deletePagesFromProcess(List<PageTableEntry>pageTableEntrysInRam, Process p) {
+    public void deletePagesFromProcess(List<PageTableEntry> pageTableEntrysInRam, Process process) {
         int originalSize = frames.size();
         for (PageTableEntry pte : pageTableEntrysInRam) {
-            deletePageFromFrame(p, pte);
+            deletePageFromFrame(process, pte);
         }
         int newSize = frames.size();
 
-        for (Process process: processesInRam){
-            int amountOfPagesFromEachRemainingProcessToAdd = (originalSize-newSize)/processesInRam.size();
-            List<PageTableEntry> allPTEprocess = process.getPageTable().stream()
-                    .filter(pageTableEntry -> pageTableEntry.getPresentBit()==0)
+        if(!queue.isEmpty()){
+            Process processToSwapIn = queue.remove();
+            Process processToRemove = null;
+            int leastRecentlyUsed = Integer.MAX_VALUE;
+            for (Process p : processesInRam) {
+                List<PageTableEntry> frames = p.getPageTable().stream()
+                        .filter(pageTableEntry -> pageTableEntry.getPresentBit() == 1)
+                        .toList();
+                for (PageTableEntry frame : frames) {
+                    if (frame.getLastAccessTime() < leastRecentlyUsed) {
+                        leastRecentlyUsed = frame.getLastAccessTime();
+                        processToRemove = p;
+                    }
+                }
+            }
+
+            //now swap out all the frames that this process to remove has
+            List<PageTableEntry> pagesToSwapOut = processToRemove.getPageTable().stream()
+                    .filter(pageTableEntry -> pageTableEntry.getPresentBit() == 1)
                     .toList();
-            for(int i=0; i<amountOfPagesFromEachRemainingProcessToAdd; i++){
-                frames.add(allPTEprocess.remove(0));
+
+            List<PageTableEntry> processToSwapInPageTable = processToSwapIn.getPageTable();
+            int i = 0;
+            for (PageTableEntry pageToSwapOut : pagesToSwapOut) {
+                //swap out page from pageToSwap to disk
+                int frameNumber = pageToSwapOut.getFrameNummer();
+                pageToSwapOut.setFrameNummer(-1);
+                if (pageToSwapOut.getModifyBit() == 1) processToRemove.increaseAmountToPersistentMemory();
+                pageToSwapOut.setModifyBit(0);
+                pageToSwapOut.setPresentBit(0);
+
+                //swap in page from new process to RAM
+                PageTableEntry pageTableEntryToSwapIn = processToSwapInPageTable.get(i);
+                pageTableEntryToSwapIn.setPresentBit(1);
+                pageTableEntryToSwapIn.setFrameNummer(frameNumber);
+                exchangePageFromFrame(processToRemove, pageToSwapOut, processToSwapIn, pageTableEntryToSwapIn);
+            }
+        }
+        else if(!(processesInRam.size() == 0)) {
+            for (Process p : processesInRam) {
+                int amountOfPagesFromEachRemainingProcessToAdd = (originalSize - newSize) / processesInRam.size();
+                List<PageTableEntry> allPTEprocess = p.getPageTable().stream()
+                        .filter(pageTableEntry -> pageTableEntry.getPresentBit() == 0)
+                        .toList();
+                for (int i = 0; i < amountOfPagesFromEachRemainingProcessToAdd; i++) {
+                    frames.add(allPTEprocess.remove(0));
+                }
             }
         }
     }
 
-    public void deletePageFromFrame(Process processToDelete, PageTableEntry pageToDelete){
-        Page pageToRemove=null;
-        for(Page p : frames){
-            if(p.getProcessId()==processToDelete.getProcessID() && p.getPageNr()==pageToDelete.getPageNumber()){
+    public void deletePageFromFrame(Process processToDelete, PageTableEntry pageToDelete) {
+        Page pageToRemove = null;
+        for (Page p : frames) {
+            if (p.getProcessId() == processToDelete.getProcessID() && p.getPageNr() == pageToDelete.getPageNumber()) {
                 pageToRemove = p;
                 break;
             }
@@ -43,10 +86,10 @@ public class RAM {
     }
 
 
-    public void exchangePageFromFrame(Process processToDelete, PageTableEntry pageToDelete, Process processToInsert, PageTableEntry pageToInsert){
-        Page pageToRemove=null;
-        for(Page p : frames){
-            if(p.getProcessId()==processToDelete.getProcessID() && p.getPageNr()==pageToDelete.getPageNumber()){
+    public void exchangePageFromFrame(Process processToDelete, PageTableEntry pageToDelete, Process processToInsert, PageTableEntry pageToInsert) {
+        Page pageToRemove = null;
+        for (Page p : frames) {
+            if (p.getProcessId() == processToDelete.getProcessID() && p.getPageNr() == pageToDelete.getPageNumber()) {
                 pageToRemove = p;
                 break;
             }
@@ -55,12 +98,12 @@ public class RAM {
         frames.set(index, new Page(processToInsert.getProcessID(), pageToInsert.getPageNumber()));
     }
 
-    public void addProcessToNotFullRam(Process process){
+    public void addProcessToNotFullRam(Process process) {
         processesInRam.add(process);
         int amountOfProcessesInRam = processesInRam.size();
         final int AMOUNTOFFRAMES = 12;
 
-        if(processesInRam.size()==1){
+        if (processesInRam.size() == 1) {
             ArrayList<PageTableEntry> pageTable = process.getPageTable();
             for (int i = 0; i < 12; i++) {
                 PageTableEntry pageTableEntry = pageTable.get(i);
@@ -69,22 +112,21 @@ public class RAM {
                 Page page = new Page(process.getProcessID(), i);
                 frames.add(page);
             }
-        }
-        else {
+        } else {
             int amountOfFramesToSwapPerProcess = AMOUNTOFFRAMES / amountOfProcessesInRam / (amountOfProcessesInRam - 1);
-            for(int i=0; i<amountOfProcessesInRam-1; i++){
+            for (int i = 0; i < amountOfProcessesInRam - 1; i++) {
                 Process processToSwap = processesInRam.get(i);
                 List<PageTableEntry> longestNotAccessedFrames = processToSwap.getPageTable().stream()
-                        .filter(pageTableEntry -> pageTableEntry.getPresentBit()==1)
-                        .sorted((p1,p2) -> p1.getLastAccessTime() - p2.getLastAccessTime())
+                        .filter(pageTableEntry -> pageTableEntry.getPresentBit() == 1)
+                        .sorted((p1, p2) -> p1.getLastAccessTime() - p2.getLastAccessTime())
                         .toList();
 
                 List<PageTableEntry> newProcessPageTable = process.getPageTable();
-                for(int j=0; j<amountOfFramesToSwapPerProcess; j++){
+                for (int j = 0; j < amountOfFramesToSwapPerProcess; j++) {
                     //frame uit proces halen
                     PageTableEntry longestNotAccessedFrame = longestNotAccessedFrames.get(j);
                     longestNotAccessedFrame.setPresentBit(0);
-                    if(longestNotAccessedFrame.getModifyBit() == 1){
+                    if (longestNotAccessedFrame.getModifyBit() == 1) {
                         processToSwap.increaseAmountToPersistentMemory();
                     }
                     int frameNumber = longestNotAccessedFrame.getFrameNummer();
@@ -97,60 +139,26 @@ public class RAM {
                     pageTableEntry.setPresentBit(1);
                     pageTableEntry.setFrameNummer(frameNumber);
                     //frames.add(new Page(process.getProcessID(), pageTableEntry.getPageNumber()));
-                    exchangePageFromFrame(processToSwap, longestNotAccessedFrame, process, pageTableEntry ); // delete page from RAM
+                    exchangePageFromFrame(processToSwap, longestNotAccessedFrame, process, pageTableEntry); // delete page from RAM
                 }
             }
         }
     }
 
-    public void addProcessToFullRam(Process processToSwapIn){
+    public void addProcessToFullRam(Process processToSwapIn) {
         //find process to swap out -> process with least recently used frame
-        Process processToRemove = null;
-        int leastRecentlyUsed = Integer.MAX_VALUE;
-        for(Process p : processesInRam){
-            List<PageTableEntry> frames = p.getPageTable().stream()
-                    .filter(pageTableEntry -> pageTableEntry.getPresentBit()==1)
-                    .toList();
-            for(PageTableEntry frame : frames){
-                if(frame.getLastAccessTime() < leastRecentlyUsed){
-                    leastRecentlyUsed = frame.getLastAccessTime();
-                    processToRemove = p;
-                }
-            }
-        }
-
-        //now swap out all the frames that this process to remove has
-        List<PageTableEntry> pagesToSwapOut = processToRemove.getPageTable().stream()
-                .filter(pageTableEntry -> pageTableEntry.getPresentBit()==1)
-                .toList();
-
-        List<PageTableEntry> processToSwapInPageTable = processToSwapIn.getPageTable();
-        int i=0;
-        for(PageTableEntry pageToSwapOut : pagesToSwapOut){
-            //swap out page from pageToSwap to disk
-            int frameNumber = pageToSwapOut.getFrameNummer();
-            pageToSwapOut.setFrameNummer(-1); //TODO hoeft dit?
-            if(pageToSwapOut.getModifyBit()==1) processToRemove.increaseAmountToPersistentMemory();
-            pageToSwapOut.setModifyBit(0);
-            pageToSwapOut.setPresentBit(0);
-
-            //swap in page from new process to RAM
-            PageTableEntry pageTableEntryToSwapIn = processToSwapInPageTable.get(i);
-            pageTableEntryToSwapIn.setPresentBit(1);
-            pageTableEntryToSwapIn.setFrameNummer(frameNumber);
-            exchangePageFromFrame(processToRemove, pageToSwapOut, processToSwapIn,pageTableEntryToSwapIn );
-        }
+        queue.add(processToSwapIn);
     }
 
-    public void addProcessToRam(Process process){
-        if(processesInRam.size() <= 3){
+    public void addProcessToRam(Process process) {
+        if (processesInRam.size() <= 3) {
             addProcessToNotFullRam(process);
         } else {
             addProcessToFullRam(process);
         }
     }
 
-    public Page getEntry(int page){
+    public Page getEntry(int page) {
         return frames.get(page);
     }
 
@@ -170,12 +178,11 @@ public class RAM {
         this.frames = frames;
     }
 
-    public int addPageToRam(Process process, int vpn){
+    public int addPageToRam(Process process, int vpn) {
         int frameNumber;
-        if(processesInRam.size() <= 3){
+        if (processesInRam.size() <= 3) {
             frameNumber = addPageToNotFullRam(process, vpn);
-        }
-        else {
+        } else {
             frameNumber = addPageToFullRam(process);
         }
 
@@ -191,9 +198,12 @@ public class RAM {
 
     private int addPageToNotFullRam(Process process, int vpn) {
         int frameNumber;
-        List<PageTableEntry> leastAccessedPages = process.getPageTable().stream().filter(pageTableEntry -> pageTableEntry.getFrameNummer() != -1).sorted(Comparator.comparingInt(PageTableEntry::getLastAccessTime)).toList();
+        List<PageTableEntry> leastAccessedPages = process.getPageTable().stream()
+                .filter(pageTableEntry -> pageTableEntry.getFrameNummer() != -1)
+                .sorted(Comparator.comparingInt(PageTableEntry::getLastAccessTime))
+                .toList();
         PageTableEntry leastAccessedPage = leastAccessedPages.get(0);
-        if (leastAccessedPage.getModifyBit() == 1){
+        if (leastAccessedPage.getModifyBit() == 1) {
             process.increaseAmountToPersistentMemory();
         }
         frameNumber = leastAccessedPage.getFrameNummer();
