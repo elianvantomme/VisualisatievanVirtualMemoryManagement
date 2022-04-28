@@ -9,7 +9,7 @@ public class RAM {
     private ArrayList<Process> processesInRam;
     private ArrayList<Page> frames;
 
-    private Queue<Process> waitingProcessesQueue;
+    private Queue<Process> queue;
 
     public RAM() {
         this.processesInRam = new ArrayList<>();
@@ -23,8 +23,8 @@ public class RAM {
         }
         int newSize = frames.size();
 
-        if(!waitingProcessesQueue.isEmpty()){
-            Process processToSwapIn = waitingProcessesQueue.remove();
+        if(!queue.isEmpty()){
+            Process processToSwapIn = queue.remove();
             Process processToRemove = null;
             int leastRecentlyUsed = Integer.MAX_VALUE;
             for (Process p : processesInRam) {
@@ -64,11 +64,12 @@ public class RAM {
         else if(!(processesInRam.size() == 0)) {
             for (Process p : processesInRam) {
                 int amountOfPagesFromEachRemainingProcessToAdd = (originalSize - newSize) / processesInRam.size();
-                List<PageTableEntry> allPTEprocess = p.getPageTable().stream()
+                List<PageTableEntry> allPTEOfprocess = p.getPageTable().stream()
                         .filter(pageTableEntry -> pageTableEntry.getPresentBit() == 0)
                         .toList();
                 for (int i = 0; i < amountOfPagesFromEachRemainingProcessToAdd; i++) {
-                    //frames.add(allPTEprocess.remove(0));
+                    Page newPage = new Page(process.getProcessID(),allPTEOfprocess.get(i).getPageNumber());
+                    frames.add(newPage);
                 }
             }
         }
@@ -147,7 +148,7 @@ public class RAM {
 
     public void addProcessToFullRam(Process processToSwapIn) {
         //find process to swap out -> process with least recently used frame
-        waitingProcessesQueue.add(processToSwapIn);
+        queue.add(processToSwapIn);
     }
 
     public void addProcessToRam(Process process) {
