@@ -54,7 +54,7 @@ public class RAM {
                 exchangePageFromFrame(processToRemove, pageToSwapOut, processToSwapIn, pageTableEntryToSwapIn);
             }
         }
-        else if(!(processesInRam.size() == 0)) {
+        else if(!(processesInRam.isEmpty())) {
             int count = 0;
             for (Process process : processesInRam) {
                 List<PageTableEntry> allPTEOfprocess = process.getPageTable().stream()
@@ -148,11 +148,11 @@ public class RAM {
         return frames.get(page);
     }
 
-    public ArrayList<Process> getProcessesInRam() {
+    public List<Process> getProcessesInRam() {
         return processesInRam;
     }
 
-    public ArrayList<Page> getFrames() {
+    public List<Page> getFrames() {
         return frames;
     }
 
