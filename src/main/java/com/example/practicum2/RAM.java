@@ -14,7 +14,7 @@ public class RAM {
     }
 
 
-    public void deletePageFromFrame(Process processToDelete, PageTableEntry pageToDelete){
+    public void exchangePageFromFrame(Process processToDelete, PageTableEntry pageToDelete, Process processToInsert, PageTableEntry pageToInsert){
         Page pageToRemove=null;
         for(Page p : frames){
             if(p.getProcessId()==processToDelete.getProcessID() && p.getPageNr()==pageToDelete.getPageNumber()){
@@ -22,13 +22,9 @@ public class RAM {
                 break;
             }
         }
-        frames.remove(pageToRemove);
+        int index = frames.indexOf(pageToRemove);
+        frames.set(index, new Page(processToInsert.getProcessID(), pageToInsert.getPageNumber()));
     }
-
-    public void insertPageInFrame(Process processToAdd, PageTableEntry pageToInsert, int frameNumber){
-        frames.add(new Page(processToAdd.getProcessID(), pageToInsert.getPageNumber()));
-    }
-
 
     public void addProcessToNotFullRam(Process process){
         processesInRam.add(process);
@@ -46,7 +42,7 @@ public class RAM {
             }
         }
         else {
-            int amountOfFramesToSwap = AMOUNTOFFRAMES / amountOfProcessesInRam;
+            int amountOfFramesToSwapPerProcess = AMOUNTOFFRAMES / amountOfProcessesInRam / (amountOfProcessesInRam - 1);
             for(int i=0; i<amountOfProcessesInRam-1; i++){
                 Process processToSwap = processesInRam.get(i);
                 List<PageTableEntry> longestNotAccessedFrames = processToSwap.getPageTable().stream()
@@ -55,7 +51,7 @@ public class RAM {
                         .toList();
 
                 List<PageTableEntry> newProcessPageTable = process.getPageTable();
-                for(int j=0; j<amountOfFramesToSwap; j++){
+                for(int j=0; j<amountOfFramesToSwapPerProcess; j++){
                     //frame uit proces halen
                     PageTableEntry longestNotAccessedFrame = longestNotAccessedFrames.get(j);
                     longestNotAccessedFrame.setPresentBit(0);
@@ -65,14 +61,14 @@ public class RAM {
                     int frameNumber = longestNotAccessedFrame.getFrameNummer();
                     longestNotAccessedFrame.setModifyBit(0);
                     longestNotAccessedFrame.setFrameNummer(-1);
-                    deletePageFromFrame(processToSwap, longestNotAccessedFrame); // delete page from RAM
+
 
                     //nu is er frame vrij en is voor het binnenkomende process
                     PageTableEntry pageTableEntry = newProcessPageTable.get(j);
                     pageTableEntry.setPresentBit(1);
                     pageTableEntry.setFrameNummer(frameNumber);
                     //frames.add(new Page(process.getProcessID(), pageTableEntry.getPageNumber()));
-                    insertPageInFrame(process, pageTableEntry, frameNumber);
+                    exchangePageFromFrame(processToSwap, longestNotAccessedFrame, process, pageTableEntry ); // delete page from RAM
                 }
             }
         }
@@ -107,14 +103,13 @@ public class RAM {
             if(pageToSwapOut.getModifyBit()==1) processToRemove.increaseAmountToPersistentMemory();
             pageToSwapOut.setModifyBit(0);
             pageToSwapOut.setPresentBit(0);
-            deletePageFromFrame(processToRemove, pageToSwapOut);
 
             //swap in page from new process to RAM
             int frameNumber = pageToSwapOut.getFrameNummer();
             PageTableEntry pageTableEntryToSwapIn = processToSwapInPageTable.get(i);
             pageTableEntryToSwapIn.setPresentBit(1);
             pageTableEntryToSwapIn.setFrameNummer(frameNumber);
-            insertPageInFrame(processToSwapIn, pageTableEntryToSwapIn, frameNumber);
+            exchangePageFromFrame(processToRemove, pageToSwapOut, processToSwapIn,pageTableEntryToSwapIn );
         }
     }
 

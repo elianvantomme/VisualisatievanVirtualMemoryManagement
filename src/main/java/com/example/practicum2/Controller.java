@@ -15,65 +15,9 @@ public class Controller {
     private ArrayList<Instruction> instructionList;
     private ArrayList<Process> processes;
     private RAM ram;
-    private String instructions = "Instructions_20000_4.xml";
+    private String instructions = "Instructions_20000_20.xml";
     private int amountOfProcesses;
     private int amountOfInstructions;
-    XMLParser xmlParser = new XMLParser("virtual memory/"+instructions);
-
-    public int calculateVPN(int virtualAddress){
-        return virtualAddress / 4096;
-    }
-
-    public String calculateRealAddress(int virtualAddress, int pid){
-        int vpn = calculateVPN(virtualAddress);
-        int offset = virtualAddress - vpn * 4096;
-        if (virtualAddress != 0){
-            Process process = processes.get(pid);
-            int frameNumber = process.getEntry(vpn).getFrameNummer();
-            if (frameNumber == -1){
-                realAddressField.setText("PAGE FAULT");
-                int newFrameNumber =  ram.addPageToRam(process, vpn);
-                return String.valueOf((newFrameNumber * 4096 + offset));
-            }
-            return String.valueOf(frameNumber * 4096 + offset);
-        }
-        return "Instruction has no address";
-    }
-
-    private void printPageTable(Process process) {
-        currentProcessPageTable.setText(String.valueOf(process.getProcessID()));
-        pageEntry0.setText(process.getEntry(0).toString());
-        pageEntry1.setText(process.getEntry(1).toString());
-        pageEntry2.setText(process.getEntry(2).toString());
-        pageEntry3.setText(process.getEntry(3).toString());
-        pageEntry4.setText(process.getEntry(4).toString());
-        pageEntry5.setText(process.getEntry(5).toString());
-        pageEntry6.setText(process.getEntry(6).toString());
-        pageEntry7.setText(process.getEntry(7).toString());
-        pageEntry8.setText(process.getEntry(8).toString());
-        pageEntry9.setText(process.getEntry(9).toString());
-        pageEntry10.setText(process.getEntry(10).toString());
-        pageEntry11.setText(process.getEntry(11).toString());
-        pageEntry12.setText(process.getEntry(12).toString());
-        pageEntry13.setText(process.getEntry(13).toString());
-        pageEntry14.setText(process.getEntry(14).toString());
-        pageEntry15.setText(process.getEntry(15).toString());
-    }
-    private void printRam(RAM ram){
-        ram.getFrames().sort((Page p1, Page p2) -> p1.getFrameNr() - p2.getFrameNr());
-        frame0.setText(ram.getEntry(0).toString());
-        frame1.setText(ram.getEntry(1).toString());
-        frame2.setText(ram.getEntry(2).toString());
-        frame3.setText(ram.getEntry(3).toString());
-        frame4.setText(ram.getEntry(4).toString());
-        frame5.setText(ram.getEntry(5).toString());
-        frame6.setText(ram.getEntry(6).toString());
-        frame7.setText(ram.getEntry(7).toString());
-        frame8.setText(ram.getEntry(8).toString());
-        frame9.setText(ram.getEntry(9).toString());
-        frame10.setText(ram.getEntry(10).toString());
-        frame11.setText(ram.getEntry(11).toString());
-    }
 
     @FXML
     private TextArea frame0;
@@ -143,9 +87,6 @@ public class Controller {
     private Button option2Btn;
 
     @FXML
-    private Text pid;
-
-    @FXML
     private TextField timerField;
 
     @FXML
@@ -159,6 +100,79 @@ public class Controller {
 
     @FXML
     private TextField realAddressField;
+
+    @FXML
+    void initialize() {
+
+        String[] subStrings = instructions.split("_");
+        amountOfInstructions = Integer.parseInt(subStrings[1]);
+        amountOfProcesses = Integer.parseInt(subStrings[2].split("\\.")[0]);
+        instructionList = xmlParser.readProcesses();
+        processes = new ArrayList<>();
+        ram = new RAM();
+
+        System.out.println(instructionList);
+    }
+
+
+    XMLParser xmlParser = new XMLParser("virtual memory/"+instructions);
+
+    public int calculateVPN(int virtualAddress){
+        return virtualAddress / 4096;
+    }
+
+    public String calculateRealAddress(int virtualAddress, int pid){
+        int vpn = calculateVPN(virtualAddress);
+        int offset = virtualAddress - vpn * 4096;
+        if (virtualAddress != 0){
+            Process process = processes.get(pid);
+            int frameNumber = process.getEntry(vpn).getFrameNummer();
+            if (frameNumber == -1){
+                realAddressField.setText("PAGE FAULT");
+                int newFrameNumber =  ram.addPageToRam(process, vpn);
+                return String.valueOf((newFrameNumber * 4096 + offset));
+            }
+            return String.valueOf(frameNumber * 4096 + offset);
+        }
+        return "Instruction has no address";
+    }
+
+    private void printPageTable(Process process) {
+        currentProcessPageTable.setText(String.valueOf(process.getProcessID()));
+        pageEntry0.setText(process.getEntry(0).toString());
+        pageEntry1.setText(process.getEntry(1).toString());
+        pageEntry2.setText(process.getEntry(2).toString());
+        pageEntry3.setText(process.getEntry(3).toString());
+        pageEntry4.setText(process.getEntry(4).toString());
+        pageEntry5.setText(process.getEntry(5).toString());
+        pageEntry6.setText(process.getEntry(6).toString());
+        pageEntry7.setText(process.getEntry(7).toString());
+        pageEntry8.setText(process.getEntry(8).toString());
+        pageEntry9.setText(process.getEntry(9).toString());
+        pageEntry10.setText(process.getEntry(10).toString());
+        pageEntry11.setText(process.getEntry(11).toString());
+        pageEntry12.setText(process.getEntry(12).toString());
+        pageEntry13.setText(process.getEntry(13).toString());
+        pageEntry14.setText(process.getEntry(14).toString());
+        pageEntry15.setText(process.getEntry(15).toString());
+    }
+    private void printRam(RAM ram){
+        ram.getFrames().sort((Page p1, Page p2) -> p1.getFrameNr() - p2.getFrameNr());
+        frame0.setText(ram.getEntry(0).toString());
+        frame1.setText(ram.getEntry(1).toString());
+        frame2.setText(ram.getEntry(2).toString());
+        frame3.setText(ram.getEntry(3).toString());
+        frame4.setText(ram.getEntry(4).toString());
+        frame5.setText(ram.getEntry(5).toString());
+        frame6.setText(ram.getEntry(6).toString());
+        frame7.setText(ram.getEntry(7).toString());
+        frame8.setText(ram.getEntry(8).toString());
+        frame9.setText(ram.getEntry(9).toString());
+        frame10.setText(ram.getEntry(10).toString());
+        frame11.setText(ram.getEntry(11).toString());
+    }
+
+
 
 
     @FXML
@@ -224,19 +238,6 @@ public class Controller {
         while(counter < amountOfInstructions){
             changeOption1(event);
         }
-    }
-
-    @FXML
-    void initialize() {
-
-        String[] subStrings = instructions.split("_");
-        amountOfInstructions = Integer.parseInt(subStrings[1]);
-        amountOfProcesses = Integer.parseInt(subStrings[2].split("\\.")[0]);
-        instructionList = xmlParser.readProcesses();
-        processes = new ArrayList<>();
-        ram = new RAM();
-
-        System.out.println(instructionList);
     }
 
 }
