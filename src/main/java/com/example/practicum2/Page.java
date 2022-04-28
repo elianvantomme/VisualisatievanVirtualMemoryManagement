@@ -11,7 +11,7 @@ public class Page {
 
     @Override
     public String toString() {
-        return "Page{" +
+        return "{" +
                 "processId=" + processId +
                 ", pageNr=" + pageNr +
                 '}';
