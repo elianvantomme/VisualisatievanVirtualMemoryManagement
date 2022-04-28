@@ -1,15 +1,12 @@
 package com.example.practicum2;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class RAM {
     private ArrayList<Process> processesInRam;
     private ArrayList<Page> frames;
 
-    private Queue<Process> queue;
+    private Queue<Process> queue = new LinkedList<>();
 
     public RAM() {
         this.processesInRam = new ArrayList<>();
@@ -136,7 +133,7 @@ public class RAM {
 
 
                     //nu is er frame vrij en is voor het binnenkomende process
-                    PageTableEntry pageTableEntry = newProcessPageTable.get(j);
+                    PageTableEntry pageTableEntry = newProcessPageTable.get(j + i * amountOfFramesToSwapPerProcess);
                     pageTableEntry.setPresentBit(1);
                     pageTableEntry.setFrameNummer(frameNumber);
                     //frames.add(new Page(process.getProcessID(), pageTableEntry.getPageNumber()));

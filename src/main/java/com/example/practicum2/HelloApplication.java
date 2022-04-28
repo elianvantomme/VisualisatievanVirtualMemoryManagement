@@ -12,7 +12,9 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1214, 756);
+        FXMLLoader fxmlLoaderFinalScene = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1318, 760);
+        Scene finalScene = new Scene(fxmlLoaderFinalScene.load(),138,760);
         stage.setTitle("Visualisatie van Virtual Memory Management");
         stage.setScene(scene);
         stage.show();

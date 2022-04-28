@@ -16,6 +16,10 @@ public class Page {
                 ", pageNr=" + pageNr +
                 '}';
     }
+    public String toString1(){
+        return "Pid "+ processId+ "\n"+
+                "pageNr: "+pageNr;
+    }
 
     public int getProcessId() {
         return processId;

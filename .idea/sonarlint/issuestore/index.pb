@@ -1,6 +1,4 @@
 
-X
-(virtual memory/Instructions_20000_20.xml,3\6\3620bdf379a71b3c9889ca3ee6b508452e3f2070
 >
 Practicum2.iml,7\3\7369113b6dca7cf1250fcc9308d588cb6d48f1d1
 T

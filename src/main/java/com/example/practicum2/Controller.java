@@ -16,7 +16,7 @@ public class Controller {
     private ArrayList<Instruction> instructionList;
     private ArrayList<Process> processes;
     private RAM ram;
-    private String instructions = "Instructions_20000_4.xml";
+    private String instructions = "Instructions_30_3.xml";
     private int amountOfProcesses;
     private int amountOfInstructions;
 
@@ -160,18 +160,18 @@ public class Controller {
         }
     }
     private void printRam(RAM ram){
-        frame0.setText(ram.getEntry(0).toString());
-        frame1.setText(ram.getEntry(1).toString());
-        frame2.setText(ram.getEntry(2).toString());
-        frame3.setText(ram.getEntry(3).toString());
-        frame4.setText(ram.getEntry(4).toString());
-        frame5.setText(ram.getEntry(5).toString());
-        frame6.setText(ram.getEntry(6).toString());
-        frame7.setText(ram.getEntry(7).toString());
-        frame8.setText(ram.getEntry(8).toString());
-        frame9.setText(ram.getEntry(9).toString());
-        frame10.setText(ram.getEntry(10).toString());
-        frame11.setText(ram.getEntry(11).toString());
+        frame0.setText(ram.getEntry(0).toString1());
+        frame1.setText(ram.getEntry(1).toString1());
+        frame2.setText(ram.getEntry(2).toString1());
+        frame3.setText(ram.getEntry(3).toString1());
+        frame4.setText(ram.getEntry(4).toString1());
+        frame5.setText(ram.getEntry(5).toString1());
+        frame6.setText(ram.getEntry(6).toString1());
+        frame7.setText(ram.getEntry(7).toString1());
+        frame8.setText(ram.getEntry(8).toString1());
+        frame9.setText(ram.getEntry(9).toString1());
+        frame10.setText(ram.getEntry(10).toString1());
+        frame11.setText(ram.getEntry(11).toString1());
     }
 
 
