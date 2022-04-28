@@ -15,12 +15,14 @@ public class RAM {
 
     public void deletePagesFromProcess(List<PageTableEntry> pageTableEntrysInRam, Process processToDelete) {
         int originalSize = frames.size();
+        List<Integer> availableFrameNumbers = new ArrayList<>();
         for (PageTableEntry pte : pageTableEntrysInRam) {
             deletePageFromFrame(processToDelete, pte);
+            availableFrameNumbers.add(pte.getFrameNummer());
         }
         processesInRam.remove(processToDelete);
 
-        if(!waitingProcessesQueue.isEmpty()){
+        if (!waitingProcessesQueue.isEmpty()) {
             Process processToSwapIn = waitingProcessesQueue.remove();
             Process processToRemove = null;
             int leastRecentlyUsed = Integer.MAX_VALUE;
@@ -57,23 +59,31 @@ public class RAM {
                 pageTableEntryToSwapIn.setFrameNummer(frameNumber);
                 exchangePageFromFrame(processToRemove, pageToSwapOut, processToSwapIn, pageTableEntryToSwapIn);
             }
-        }
-        else if(!(processesInRam.size() == 0)) {
-            for (Process processesLeftInRAM : processesInRam) {
-                int amountOfPagesFromEachRemainingProcessToAdd = (originalSize - frames.size()) / processesInRam.size();
-                List<PageTableEntry> allPTEOfprocess = processesLeftInRAM.getPageTable().stream()
+        } else if (!(processesInRam.size() == 0)) {
+            int amountOfPagesFromEachRemainingProcessToAdd = (originalSize - frames.size()) / processesInRam.size();
+            for (Process processLeftInRAM : processesInRam) {
+                int frameNumber = availableFrameNumbers.remove(0);
+                List<PageTableEntry> allPTENotInRAMOfProcessInRAM = processLeftInRAM.getPageTable().stream()
                         .filter(pageTableEntry -> pageTableEntry.getPresentBit() == 0)
                         .toList();
                 for (int i = 0; i < amountOfPagesFromEachRemainingProcessToAdd; i++) {
-                    Page newPage = new Page(processesLeftInRAM.getProcessID(),allPTEOfprocess.get(i).getPageNumber());
-                    frames.add(newPage);
+                    PageTableEntry pte = allPTENotInRAMOfProcessInRAM.get(i);
+                    Page newPage = new Page(processLeftInRAM.getProcessID(), pte.getPageNumber());
+                    insertInFrame(newPage, frameNumber);
+                    pte.setFrameNummer(frameNumber);
+                    pte.setPresentBit(1);
                 }
             }
         }
     }
 
+    private void insertInFrame(Page newPage, int frameNumber) {
+        frames.add(frameNumber, newPage);
+    }
+
     public void deletePageFromFrame(Process processToDelete, PageTableEntry pageToDelete) {
         Page pageToRemove = null;
+        int framenummer = -1;
         for (Page p : frames) {
             if (p.getProcessId() == processToDelete.getProcessID() && p.getPageNr() == pageToDelete.getPageNumber()) {
                 pageToRemove = p;
