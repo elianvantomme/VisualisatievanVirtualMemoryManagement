@@ -7,6 +7,7 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class Controller {
@@ -202,6 +203,10 @@ public class Controller {
                 }
                 case "Terminate" -> {
                     Process process = processes.get(currentInstruction.getpId());
+                    if(process.pagesFromProcessInRAM()){
+                        List<PageTableEntry> pageTableEntrysInRam = process.listOfPagesInRAM();
+                        ram.deletePagesFromProcess(pageTableEntrysInRam, process);
+                    }
                     process.deletePageTable();
                     printPageTable(processes.get(currentInstruction.getpId()));
                 }

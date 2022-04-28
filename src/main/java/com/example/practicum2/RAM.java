@@ -13,6 +13,14 @@ public class RAM {
         this.frames = new ArrayList<>();
     }
 
+    public void deletePagesFromProcess(List<PageTableEntry>pageTableEntrysInRam, Process p){
+        for(PageTableEntry pte: pageTableEntrysInRam){
+            deletePageFromFrame(p, pte);
+        }
+        for(Page page: frames){
+
+        }
+    }
 
     public void deletePageFromFrame(Process processToDelete, PageTableEntry pageToDelete){
         Page pageToRemove=null;
