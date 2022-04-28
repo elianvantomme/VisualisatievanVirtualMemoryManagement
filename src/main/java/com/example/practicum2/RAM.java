@@ -150,6 +150,7 @@ public class RAM {
 
     public void addProcessToRam(Process process) {
         if (processesInRam.size() <= 3) {
+            System.out.println("teset");
             addProcessToNotFullRam(process);
         } else {
             addProcessToFullRam(process);
