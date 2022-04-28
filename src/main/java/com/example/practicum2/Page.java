@@ -3,7 +3,6 @@ package com.example.practicum2;
 public class Page {
     private int processId;
     private int pageNr;
-    private int frameNr;
 
     public Page(int processId, int pageNr){
         this.processId = processId;
@@ -31,11 +30,4 @@ public class Page {
         this.pageNr = pageNr;
     }
 
-    public int getFrameNr() {
-        return frameNr;
-    }
-
-    public void setFrameNr(int frameNr) {
-        this.frameNr = frameNr;
-    }
 }

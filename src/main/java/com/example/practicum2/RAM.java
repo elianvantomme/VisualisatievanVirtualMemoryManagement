@@ -119,13 +119,13 @@ public class RAM {
         int i=0;
         for(PageTableEntry pageToSwapOut : pagesToSwapOut){
             //swap out page from pageToSwap to disk
+            int frameNumber = pageToSwapOut.getFrameNummer();
             pageToSwapOut.setFrameNummer(-1); //TODO hoeft dit?
             if(pageToSwapOut.getModifyBit()==1) processToRemove.increaseAmountToPersistentMemory();
             pageToSwapOut.setModifyBit(0);
             pageToSwapOut.setPresentBit(0);
 
             //swap in page from new process to RAM
-            int frameNumber = pageToSwapOut.getFrameNummer();
             PageTableEntry pageTableEntryToSwapIn = processToSwapInPageTable.get(i);
             pageTableEntryToSwapIn.setPresentBit(1);
             pageTableEntryToSwapIn.setFrameNummer(frameNumber);

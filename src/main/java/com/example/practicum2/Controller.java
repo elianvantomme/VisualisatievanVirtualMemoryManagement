@@ -16,7 +16,7 @@ public class Controller {
     private ArrayList<Instruction> instructionList;
     private ArrayList<Process> processes;
     private RAM ram;
-    private String instructions = "Instructions_20000_20.xml";
+    private String instructions = "Instructions_30_3.xml";
     private int amountOfProcesses;
     private int amountOfInstructions;
 
@@ -139,26 +139,27 @@ public class Controller {
     }
 
     private void printPageTable(Process process) {
-        currentProcessPageTable.setText(String.valueOf(process.getProcessID()));
-        pageEntry0.setText(process.getEntry(0).toString());
-        pageEntry1.setText(process.getEntry(1).toString());
-        pageEntry2.setText(process.getEntry(2).toString());
-        pageEntry3.setText(process.getEntry(3).toString());
-        pageEntry4.setText(process.getEntry(4).toString());
-        pageEntry5.setText(process.getEntry(5).toString());
-        pageEntry6.setText(process.getEntry(6).toString());
-        pageEntry7.setText(process.getEntry(7).toString());
-        pageEntry8.setText(process.getEntry(8).toString());
-        pageEntry9.setText(process.getEntry(9).toString());
-        pageEntry10.setText(process.getEntry(10).toString());
-        pageEntry11.setText(process.getEntry(11).toString());
-        pageEntry12.setText(process.getEntry(12).toString());
-        pageEntry13.setText(process.getEntry(13).toString());
-        pageEntry14.setText(process.getEntry(14).toString());
-        pageEntry15.setText(process.getEntry(15).toString());
+        if (!process.getPageTable().isEmpty()){
+            currentProcessPageTable.setText(String.valueOf(process.getProcessID()));
+            pageEntry0.setText(process.getEntry(0).toString());
+            pageEntry1.setText(process.getEntry(1).toString());
+            pageEntry2.setText(process.getEntry(2).toString());
+            pageEntry3.setText(process.getEntry(3).toString());
+            pageEntry4.setText(process.getEntry(4).toString());
+            pageEntry5.setText(process.getEntry(5).toString());
+            pageEntry6.setText(process.getEntry(6).toString());
+            pageEntry7.setText(process.getEntry(7).toString());
+            pageEntry8.setText(process.getEntry(8).toString());
+            pageEntry9.setText(process.getEntry(9).toString());
+            pageEntry10.setText(process.getEntry(10).toString());
+            pageEntry11.setText(process.getEntry(11).toString());
+            pageEntry12.setText(process.getEntry(12).toString());
+            pageEntry13.setText(process.getEntry(13).toString());
+            pageEntry14.setText(process.getEntry(14).toString());
+            pageEntry15.setText(process.getEntry(15).toString());
+        }
     }
     private void printRam(RAM ram){
-        ram.getFrames().sort((Page p1, Page p2) -> p1.getFrameNr() - p2.getFrameNr());
         frame0.setText(ram.getEntry(0).toString());
         frame1.setText(ram.getEntry(1).toString());
         frame2.setText(ram.getEntry(2).toString());
@@ -222,7 +223,6 @@ public class Controller {
                         ram.deletePagesFromProcess(pageTableEntrysInRam, process);
                     }
                     process.deletePageTable();
-                    printPageTable(processes.get(currentInstruction.getpId()));
                 }
                 default -> throw new IllegalStateException("Unexpected value: " + operation);
             }
