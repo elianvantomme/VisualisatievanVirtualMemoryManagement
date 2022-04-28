@@ -49,58 +49,136 @@
                      </font></Text>
                   <VBox layoutX="55.0" layoutY="72.0" prefHeight="217.0" prefWidth="248.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Current:" />
-                        <TextArea fx:id="currentInstructionField" editable="false" prefHeight="73.0" prefWidth="248.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Current:">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Text>
+                        <TextArea fx:id="currentInstructionField" editable="false" prefHeight="73.0" prefWidth="248.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font></TextArea>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Next:">
                            <VBox.margin>
                               <Insets top="20.0" />
                            </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
                         </Text>
-                        <TextArea fx:id="nextInstructionField" editable="false" prefHeight="81.0" prefWidth="248.0" />
+                        <TextArea fx:id="nextInstructionField" editable="false" prefHeight="81.0" prefWidth="248.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font></TextArea>
                      </children></VBox>
                   <Text layoutX="210.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Real Address" underline="true">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="realAddressField" layoutX="190.0" layoutY="334.0" prefHeight="31.0" prefWidth="143.0" />
+                  <TextField fx:id="realAddressField" layoutX="190.0" layoutY="334.0" prefHeight="31.0" prefWidth="143.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
                   <Text layoutX="31.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Virtual page Nr" underline="true">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text fx:id="virtualPageNumberText" layoutX="88.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                  <Text fx:id="virtualPageNumberText" layoutX="88.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
                </children>
             </Pane>
             <Pane prefHeight="684.0" prefWidth="534.0">
                <children>
-                  <Text layoutX="166.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page table of current process, Pid:" underline="true" />
-                  <Text fx:id="currentProcessPageTable" layoutX="407.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+                  <Text layoutX="113.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page table of current process, Pid:" underline="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
+                  <Text fx:id="currentProcessPageTable" layoutX="402.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
                   <ScrollPane layoutX="39.0" layoutY="61.0" prefHeight="394.0" prefWidth="458.0">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="706.0" prefWidth="533.0">
                            <children>
                               <VBox layoutX="-1.0" prefHeight="698.0" prefWidth="539.0">
                                  <children>
-                                    <TextArea fx:id="pageEntry0" prefHeight="49.0" prefWidth="445.0" />
-                                    <TextArea fx:id="pageEntry1" prefHeight="49.0" prefWidth="445.0" />
-                                    <TextArea fx:id="pageEntry2" prefHeight="49.0" prefWidth="445.0" />
-                                    <TextArea fx:id="pageEntry3" prefHeight="49.0" prefWidth="445.0" />
-                                    <TextArea fx:id="pageEntry4" prefHeight="49.0" prefWidth="445.0" />
-                                    <TextArea fx:id="pageEntry5" prefHeight="49.0" prefWidth="445.0" />
-                                    <TextArea fx:id="pageEntry6" prefHeight="49.0" prefWidth="445.0" />
-                                    <TextArea fx:id="pageEntry7" prefHeight="49.0" prefWidth="445.0" />
-                                    <TextArea fx:id="pageEntry8" prefHeight="49.0" prefWidth="445.0" />
-                                    <TextArea fx:id="pageEntry9" prefHeight="49.0" prefWidth="445.0" />
-                                    <TextArea fx:id="pageEntry10" prefHeight="49.0" prefWidth="445.0" />
+                                    <TextArea fx:id="pageEntry0" prefHeight="49.0" prefWidth="445.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <opaqueInsets>
+                                          <Insets top="5.0" />
+                                       </opaqueInsets></TextArea>
+                                    <TextArea fx:id="pageEntry1" prefHeight="49.0" prefWidth="445.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextArea>
+                                    <TextArea fx:id="pageEntry2" prefHeight="49.0" prefWidth="445.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextArea>
+                                    <TextArea fx:id="pageEntry3" prefHeight="49.0" prefWidth="445.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextArea>
+                                    <TextArea fx:id="pageEntry4" prefHeight="49.0" prefWidth="445.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextArea>
+                                    <TextArea fx:id="pageEntry5" prefHeight="49.0" prefWidth="445.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextArea>
+                                    <TextArea fx:id="pageEntry6" prefHeight="49.0" prefWidth="445.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextArea>
+                                    <TextArea fx:id="pageEntry7" prefHeight="49.0" prefWidth="445.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextArea>
+                                    <TextArea fx:id="pageEntry8" prefHeight="49.0" prefWidth="445.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextArea>
+                                    <TextArea fx:id="pageEntry9" prefHeight="49.0" prefWidth="445.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextArea>
+                                    <TextArea fx:id="pageEntry10" prefHeight="49.0" prefWidth="445.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextArea>
                                     <TextArea fx:id="pageEntry11" prefHeight="49.0" prefWidth="445.0">
                                        <padding>
                                           <Insets right="10.0" />
-                                       </padding></TextArea>
-                                    <TextArea fx:id="pageEntry12" prefHeight="49.0" prefWidth="445.0" />
-                                    <TextArea fx:id="pageEntry13" prefHeight="49.0" prefWidth="445.0" />
-                                    <TextArea fx:id="pageEntry14" prefHeight="49.0" prefWidth="445.0" />
-                                    <TextArea fx:id="pageEntry15" prefHeight="49.0" prefWidth="445.0" />
+                                       </padding>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextArea>
+                                    <TextArea fx:id="pageEntry12" prefHeight="49.0" prefWidth="445.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextArea>
+                                    <TextArea fx:id="pageEntry13" prefHeight="49.0" prefWidth="445.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextArea>
+                                    <TextArea fx:id="pageEntry14" prefHeight="49.0" prefWidth="445.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextArea>
+                                    <TextArea fx:id="pageEntry15" prefHeight="49.0" prefWidth="445.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextArea>
                                  </children>
                               </VBox>
                            </children>
@@ -127,10 +205,13 @@
                         <HBox>
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 0:  " />
-                              <TextArea fx:id="frame0" prefHeight="200.0" prefWidth="200.0">
+                              <TextArea fx:id="frame0" editable="false" prefHeight="200.0" prefWidth="200.0">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextArea>
                            </children>
                            <padding>
@@ -140,10 +221,13 @@
                         <HBox GridPane.columnIndex="1">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 1:  " />
-                              <TextArea fx:id="frame1" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                              <TextArea fx:id="frame1" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextArea>
                            </children>
                            <padding>
@@ -153,10 +237,13 @@
                         <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 5:  " />
-                              <TextArea fx:id="frame5" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <TextArea fx:id="frame5" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <GridPane.margin>
                                     <Insets right="10.0" />
                                  </GridPane.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextArea>
                            </children>
                            <padding>
@@ -166,10 +253,13 @@
                         <HBox GridPane.rowIndex="2">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 4:  " />
-                              <TextArea fx:id="frame4" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                              <TextArea fx:id="frame4" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                                  <GridPane.margin>
                                     <Insets right="10.0" />
                                  </GridPane.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextArea>
                            </children>
                            <padding>
@@ -179,13 +269,16 @@
                         <HBox GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 3:  " />
-                              <TextArea fx:id="frame3" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <TextArea fx:id="frame3" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets right="10.0" />
                                  </GridPane.margin>
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextArea>
                            </children>
                            <padding>
@@ -195,13 +288,16 @@
                         <HBox GridPane.rowIndex="1">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 2:  " />
-                              <TextArea fx:id="frame2" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                              <TextArea fx:id="frame2" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets right="10.0" />
                                  </GridPane.margin>
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextArea>
                            </children>
                            <GridPane.margin>
@@ -211,10 +307,13 @@
                         <HBox GridPane.rowIndex="3">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 6:  " />
-                              <TextArea fx:id="frame6" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+                              <TextArea fx:id="frame6" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets right="10.0" />
                                  </GridPane.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextArea>
                            </children>
                            <padding>
@@ -224,10 +323,13 @@
                         <HBox GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 7:  " />
-                              <TextArea fx:id="frame7" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <TextArea fx:id="frame7" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets right="10.0" />
                                  </GridPane.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextArea>
                            </children>
                            <padding>
@@ -237,10 +339,13 @@
                         <HBox GridPane.rowIndex="4">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 8:  " />
-                              <TextArea fx:id="frame8" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+                              <TextArea fx:id="frame8" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
                                  <GridPane.margin>
                                     <Insets right="10.0" />
                                  </GridPane.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextArea>
                            </children>
                            <padding>
@@ -250,10 +355,13 @@
                         <HBox GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 9:  " />
-                              <TextArea fx:id="frame9" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                              <TextArea fx:id="frame9" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <GridPane.margin>
                                     <Insets right="10.0" />
                                  </GridPane.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextArea>
                            </children>
                            <padding>
@@ -263,10 +371,13 @@
                         <HBox GridPane.rowIndex="5">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 10:  " />
-                              <TextArea fx:id="frame10" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
+                              <TextArea fx:id="frame10" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
                                  <GridPane.margin>
                                     <Insets right="10.0" />
                                  </GridPane.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextArea>
                            </children>
                            <padding>
@@ -276,10 +387,13 @@
                         <HBox GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="frame 11:  " />
-                              <TextArea fx:id="frame11" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                              <TextArea fx:id="frame11" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                  <GridPane.margin>
                                     <Insets right="10.0" />
                                  </GridPane.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
                               </TextArea>
                            </children>
                            <padding>
@@ -288,7 +402,10 @@
                         </HBox>
                      </children>
                   </GridPane>
-                  <Text layoutX="203.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RAM" underline="true" />
+                  <Text layoutX="200.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RAM" underline="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
                </children>
             </Pane>
          </children>
