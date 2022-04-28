@@ -15,7 +15,6 @@ public class PageTableEntry {
         lastAccessTime = -1;
         frameNummer = -1;
         this.pageNumber = pageNumber;
-
     }
 
     public int getPresentBit() {
