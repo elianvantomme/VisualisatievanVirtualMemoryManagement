@@ -16,7 +16,7 @@ public class Controller {
     private ArrayList<Instruction> instructionList;
     private ArrayList<Process> processes;
     private RAM ram;
-    private String instructions = "Instructions_30_3.xml";
+    private String instructions = "Instructions_20000_20.xml";
     private int amountOfProcesses;
     private int amountOfInstructions;
 

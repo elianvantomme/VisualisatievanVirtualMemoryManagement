@@ -15,9 +15,6 @@ public class RAM {
 
     public void deletePagesFromProcess(List<PageTableEntry> pageTableEntrysInRam, Process processToDelete) {
         int originalSize = frames.size();
-        for (PageTableEntry pte : pageTableEntrysInRam) {
-            deletePageFromFrame(processToDelete, pte);
-        }
         processesInRam.remove(processToDelete);
 
         if(!waitingProcessesQueue.isEmpty()){
@@ -59,16 +56,30 @@ public class RAM {
             }
         }
         else if(!(processesInRam.size() == 0)) {
-            for (Process processesLeftInRAM : processesInRam) {
-                int amountOfPagesFromEachRemainingProcessToAdd = (originalSize - frames.size()) / processesInRam.size();
-                List<PageTableEntry> allPTEOfprocess = processesLeftInRAM.getPageTable().stream()
+            int count = 0;
+            for (Process process : processesInRam) {
+                List<PageTableEntry> allPTEOfprocess = process.getPageTable().stream()
                         .filter(pageTableEntry -> pageTableEntry.getPresentBit() == 0)
                         .toList();
-                for (int i = 0; i < amountOfPagesFromEachRemainingProcessToAdd; i++) {
-                    Page newPage = new Page(processesLeftInRAM.getProcessID(),allPTEOfprocess.get(i).getPageNumber());
-                    frames.add(newPage);
+                for (int i = 0; i <  pageTableEntrysInRam.size() / processesInRam.size(); i++) {
+                    PageTableEntry pageTableEntryOfToBeDeletedProcess = pageTableEntrysInRam.get(i + count);
+                    exchangePageFromFrame(processToDelete, pageTableEntryOfToBeDeletedProcess, process, allPTEOfprocess.get(i));
+                    allPTEOfprocess.get(i).setFrameNummer(pageTableEntryOfToBeDeletedProcess.getFrameNummer());
+                    allPTEOfprocess.get(i).setPresentBit(1);
+                    if (i ==  pageTableEntrysInRam.size() / processesInRam.size()-1){
+                        count += i + 1;
+                    }
                 }
             }
+
+
+
+//                int amountOfPagesFromEachRemainingProcessToAdd = (originalSize - frames.size()) / processesInRam.size();
+//
+//                for (int i = 0; i < amountOfPagesFromEachRemainingProcessToAdd; i++) {
+//                    Page newPage = new Page(processesLeftInRAM.getProcessID(),allPTEOfprocess.get(i).getPageNumber());
+//                    frames.add(newPage);
+//                }
         }
     }
 
