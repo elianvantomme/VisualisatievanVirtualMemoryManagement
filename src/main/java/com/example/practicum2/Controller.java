@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class Controller {
     private int clock = 0;
-    private int counter = 0 ;
+    private int counter = 0;
     private ArrayList<Instruction> instructionList;
     private ArrayList<Process> processes;
     private RAM ram;
@@ -112,25 +112,25 @@ public class Controller {
         processes = new ArrayList<>();
         ram = new RAM();
 
-        System.out.println(instructionList);
+        //System.out.println(instructionList);
     }
 
 
-    XMLParser xmlParser = new XMLParser("virtual memory/"+instructions);
+    XMLParser xmlParser = new XMLParser("virtual memory/" + instructions);
 
-    public int calculateVPN(int virtualAddress){
+    public int calculateVPN(int virtualAddress) {
         return virtualAddress / 4096;
     }
 
-    public String calculateRealAddress(int virtualAddress, int pid){
+    public String calculateRealAddress(int virtualAddress, int pid) {
         int vpn = calculateVPN(virtualAddress);
         int offset = virtualAddress - vpn * 4096;
-        if (virtualAddress != 0){
+        if (virtualAddress != 0) {
             Process process = processes.get(pid);
             int frameNumber = process.getEntry(vpn).getFrameNummer();
-            if (frameNumber == -1){
+            if (frameNumber == -1) {
                 realAddressField.setText("PAGE FAULT");
-                int newFrameNumber =  ram.addPageToRam(process, vpn);
+                int newFrameNumber = ram.addPageToRam(process, vpn);
                 return String.valueOf((newFrameNumber * 4096 + offset));
             }
             return String.valueOf(frameNumber * 4096 + offset);
@@ -139,7 +139,7 @@ public class Controller {
     }
 
     private void printPageTable(Process process) {
-        if (!process.getPageTable().isEmpty()){
+        if (!process.getPageTable().isEmpty()) {
             currentProcessPageTable.setText(String.valueOf(process.getProcessID()));
             pageEntry0.setText(process.getEntry(0).toString());
             pageEntry1.setText(process.getEntry(1).toString());
@@ -159,7 +159,8 @@ public class Controller {
             pageEntry15.setText(process.getEntry(15).toString());
         }
     }
-    private void printRam(RAM ram){
+
+    private void printRam(RAM ram) {
         frame0.setText(ram.getEntry(0).toString());
         frame1.setText(ram.getEntry(1).toString());
         frame2.setText(ram.getEntry(2).toString());
@@ -175,28 +176,31 @@ public class Controller {
     }
 
 
-    void debug(Process currentProcess, Instruction currentInstruction){
+    void debug(Process currentProcess, Instruction currentInstruction) {
         System.out.println("time: " + clock);
         System.out.println("current instruction: " + currentInstruction + " virtual page number: " + calculateVPN(currentInstruction.getVirtualAddress()));
-        System.out.println("page table of current process: " + currentProcess.getProcessID());
-        currentProcess.getPageTable().forEach(System.out::println);
+        for(Process p : ram.getProcessesInRam()){
+            System.out.println("page table of process " + p.getProcessID());
+            p.getPageTable().forEach(System.out::println);
+        }
         System.out.println("ram during current instruction");
-       // System.out.println(ram.getProcessesInRam());
-        //System.out.println(ram.getFrames());
-        for(int i=0; i<ram.getFrames().size(); i++){
+        List<Integer> processesInRam = ram.getProcessesInRam().stream().map(process -> process.getProcessID()).toList();
+        System.out.println("current processes in ram: " + processesInRam);
+        for (int i = 0; i < ram.getFrames().size(); i++) {
             System.out.println("frame " + i + ": " + ram.getFrames().get(i));
         }
-        System.out.println("---------------------------------------------------------------------------------------------------------");
+        for (int i = 0; i < 200; i++) System.out.print("-");
+        System.out.println("\n");
     }
 
     @FXML
     void changeOption1(ActionEvent event) {
 
         timerField.setText(String.valueOf(clock));
-        if(counter < amountOfInstructions-1){
+        if (counter < amountOfInstructions - 1) {
 
             Instruction currentInstruction = instructionList.get(counter);
-            Instruction nextInstruction = instructionList.get(counter+1);
+            Instruction nextInstruction = instructionList.get(counter + 1);
             String operation = currentInstruction.getOperation();
             currentInstructionField.setText(currentInstruction.toString());
             nextInstructionField.setText(nextInstruction.toString());
@@ -231,7 +235,7 @@ public class Controller {
                 }
                 case "Terminate" -> {
                     process = processes.get(currentInstruction.getpId());
-                    if(process.pagesFromProcessInRAM()){
+                    if (process.pagesFromProcessInRAM()) {
                         List<PageTableEntry> pageTableEntrysInRam = process.getPageTable().stream()
                                 .filter(pageTableEntry -> pageTableEntry.getPresentBit()==1)
                                 .toList();
@@ -246,7 +250,7 @@ public class Controller {
             clock++;
             debug(process, currentInstruction);
 
-        }else if(counter >= amountOfInstructions-1){
+        } else if (counter >= amountOfInstructions - 1) {
             nextInstructionField.setText("END OF INSTRUCTIONS");
             option1Btn.disabledProperty();
             option2Btn.disabledProperty();
@@ -256,7 +260,7 @@ public class Controller {
 
     @FXML
     void changeOption2(ActionEvent event) {
-        while(counter < amountOfInstructions){
+        while (counter < amountOfInstructions) {
             changeOption1(event);
         }
     }
