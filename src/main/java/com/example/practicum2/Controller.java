@@ -83,6 +83,7 @@ public class Controller {
     @FXML
     private TextArea pageEntry15;
 
+
     @FXML
     private Button option2Btn;
 
@@ -113,10 +114,14 @@ public class Controller {
 
         System.out.println(instructionList);
     }
+
+
     XMLParser xmlParser = new XMLParser("virtual memory/"+instructions);
+
     public int calculateVPN(int virtualAddress){
         return virtualAddress / 4096;
     }
+
     public String calculateRealAddress(int virtualAddress, int pid){
         int vpn = calculateVPN(virtualAddress);
         int offset = virtualAddress - vpn * 4096;
@@ -169,6 +174,21 @@ public class Controller {
         frame11.setText(ram.getEntry(11).toString());
     }
 
+
+    void debug(Process currentProcess, Instruction currentInstruction){
+        System.out.println("time: " + clock);
+        System.out.println("current instruction: " + currentInstruction + " virtual page number: " + calculateVPN(currentInstruction.getVirtualAddress()));
+        System.out.println("page table of current process: " + currentProcess.getProcessID());
+        currentProcess.getPageTable().forEach(System.out::println);
+        System.out.println("ram during current instruction");
+       // System.out.println(ram.getProcessesInRam());
+        //System.out.println(ram.getFrames());
+        for(int i=0; i<ram.getFrames().size(); i++){
+            System.out.println("frame " + i + ": " + ram.getFrames().get(i));
+        }
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+    }
+
     @FXML
     void changeOption1(ActionEvent event) {
 
@@ -183,17 +203,18 @@ public class Controller {
             realAddressField.setText(calculateRealAddress(currentInstruction.getVirtualAddress(), currentInstruction.getpId()));
             virtualPageNumberText.setText(String.valueOf(calculateVPN(currentInstruction.getVirtualAddress())));
 
+            Process process = null;
             switch (operation) {
                 case "Start" -> {
                     //At startup make an page table and place the processes pages inside the RAM
-                    Process process = new Process(currentInstruction.getpId());
+                    process = new Process(currentInstruction.getpId());
                     process.createPageTable();
                     processes.add(process);
                     ram.addProcessToRam(process);
                     printPageTable(processes.get(currentInstruction.getpId()));
                 }
                 case "Read" -> {
-                    Process process = processes.get(currentInstruction.getpId());
+                    process = processes.get(currentInstruction.getpId());
                     int virtualAddress = currentInstruction.getVirtualAddress();
                     int vpn = calculateVPN(virtualAddress);
                     calculateRealAddress(currentInstruction.getVirtualAddress(), process.getProcessID());
@@ -201,7 +222,7 @@ public class Controller {
                     printPageTable(processes.get(currentInstruction.getpId()));
                 }
                 case "Write" -> {
-                    Process process = processes.get(currentInstruction.getpId());
+                    process = processes.get(currentInstruction.getpId());
                     int virtualAddress = currentInstruction.getVirtualAddress();
                     int vpn = calculateVPN(virtualAddress);
                     calculateRealAddress(currentInstruction.getVirtualAddress(), process.getProcessID());
@@ -209,7 +230,7 @@ public class Controller {
                     printPageTable(processes.get(currentInstruction.getpId()));
                 }
                 case "Terminate" -> {
-                    Process process = processes.get(currentInstruction.getpId());
+                    process = processes.get(currentInstruction.getpId());
                     if(process.pagesFromProcessInRAM()){
                         List<PageTableEntry> pageTableEntrysInRam = process.getPageTable().stream()
                                 .filter(pageTableEntry -> pageTableEntry.getPresentBit()==1)
@@ -223,6 +244,7 @@ public class Controller {
 
             printRam(ram);
             clock++;
+            debug(process, currentInstruction);
 
         }else if(counter >= amountOfInstructions-1){
             nextInstructionField.setText("END OF INSTRUCTIONS");

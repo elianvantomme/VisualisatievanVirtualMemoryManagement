@@ -9,9 +9,12 @@ public class Page {
         this.pageNr = pageNr;
     }
 
-    public String toString(){
-        return "Pid: "+processId+"\n"+
-                "Page Nr: "+pageNr;
+    @Override
+    public String toString() {
+        return "Page{" +
+                "processId=" + processId +
+                ", pageNr=" + pageNr +
+                '}';
     }
 
     public int getProcessId() {

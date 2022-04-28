@@ -57,6 +57,13 @@ public class Process {
     public void deletePageTable() {
         pageTable.clear();
     }
+
+    @Override
+    public String toString() {
+        return "Process{" +
+                "processID=" + processID +
+                '}';
+    }
 }
 
 
