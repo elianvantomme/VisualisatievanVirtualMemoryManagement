@@ -68,7 +68,8 @@ public class RAM {
                         .filter(pageTableEntry -> pageTableEntry.getPresentBit() == 0)
                         .toList();
                 for (int i = 0; i < amountOfPagesFromEachRemainingProcessToAdd; i++) {
-                    frames.add(allPTEprocess.remove(0));
+                    Page newPage = new Page(process.getProcessID(),allPTEprocess.get(0).getPageNumber());
+                    frames.add(newPage);
                 }
             }
         }
