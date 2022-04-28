@@ -1,6 +1,8 @@
 package com.example.practicum2;
 
 import java.util.ArrayList;
+import java.util.List;
+
 public class Process {
     private int processID;
     private ArrayList<PageTableEntry> pageTable;
@@ -45,8 +47,23 @@ public class Process {
 
     }
 
-    public void deletePageTable() {
+    public boolean pagesFromProcessInRAM() {
+        for(PageTableEntry p: pageTable){
+            if(p.getPresentBit() == 1) return true;
+        }
+        return false;
+    }
 
+    public List<PageTableEntry> listOfPagesInRAM() {
+        List<PageTableEntry> pagesInRAM = new ArrayList<>();
+        for(PageTableEntry p: pageTable){
+            if(p.getPresentBit() == 1) pagesInRAM.add(p);
+        }
+        return pagesInRAM;
+    }
+
+    public void deletePageTable() {
+        pageTable.clear();
     }
 }
 
