@@ -13,25 +13,25 @@ public class RAM {
         this.frames = new ArrayList<>();
     }
 
-    public void deletePagesFromProcess(List<PageTableEntry> pageTableEntrysInRam, Process process) {
+    public void deletePagesFromProcess(List<PageTableEntry> pageTableEntrysInRam, Process processToDelete) {
         int originalSize = frames.size();
         for (PageTableEntry pte : pageTableEntrysInRam) {
-            deletePageFromFrame(process, pte);
+            deletePageFromFrame(processToDelete, pte);
         }
-        int newSize = frames.size();
+        processesInRam.remove(processToDelete);
 
         if(!waitingProcessesQueue.isEmpty()){
             Process processToSwapIn = waitingProcessesQueue.remove();
             Process processToRemove = null;
             int leastRecentlyUsed = Integer.MAX_VALUE;
-            for (Process p : processesInRam) {
-                List<PageTableEntry> frames = p.getPageTable().stream()
+            for (Process processesLeftInRAM : processesInRam) {
+                List<PageTableEntry> frames = processesLeftInRAM.getPageTable().stream()
                         .filter(pageTableEntry -> pageTableEntry.getPresentBit() == 1)
                         .toList();
                 for (PageTableEntry frame : frames) {
                     if (frame.getLastAccessTime() < leastRecentlyUsed) {
                         leastRecentlyUsed = frame.getLastAccessTime();
-                        processToRemove = p;
+                        processToRemove = processesLeftInRAM;
                     }
                 }
             }
@@ -59,13 +59,13 @@ public class RAM {
             }
         }
         else if(!(processesInRam.size() == 0)) {
-            for (Process p : processesInRam) {
-                int amountOfPagesFromEachRemainingProcessToAdd = (originalSize - newSize) / processesInRam.size();
-                List<PageTableEntry> allPTEOfprocess = p.getPageTable().stream()
+            for (Process processesLeftInRAM : processesInRam) {
+                int amountOfPagesFromEachRemainingProcessToAdd = (originalSize - frames.size()) / processesInRam.size();
+                List<PageTableEntry> allPTEOfprocess = processesLeftInRAM.getPageTable().stream()
                         .filter(pageTableEntry -> pageTableEntry.getPresentBit() == 0)
                         .toList();
                 for (int i = 0; i < amountOfPagesFromEachRemainingProcessToAdd; i++) {
-                    Page newPage = new Page(p.getProcessID(),allPTEOfprocess.get(i).getPageNumber());
+                    Page newPage = new Page(processesLeftInRAM.getProcessID(),allPTEOfprocess.get(i).getPageNumber());
                     frames.add(newPage);
                 }
             }
