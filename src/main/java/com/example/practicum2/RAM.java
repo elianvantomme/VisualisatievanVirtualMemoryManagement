@@ -13,13 +13,13 @@ public class RAM {
         this.frames = new ArrayList<>();
     }
 
-    public void deletePagesFromProcess(List<PageTableEntry>pageTableEntrysInRam, Process p){
-        for(PageTableEntry pte: pageTableEntrysInRam){
+    public void deletePagesFromProcess(List<PageTableEntry>pageTableEntrysInRam, Process p) {
+        int originalSize = frames.size();
+        for (PageTableEntry pte : pageTableEntrysInRam) {
             deletePageFromFrame(p, pte);
         }
-        for(Page page: frames){
-
-        }
+        int newSize = frames.size();
+        // TODO add (originalSize-newSize)/processesInRAM.size() of each remaining process to frames
     }
 
     public void deletePageFromFrame(Process processToDelete, PageTableEntry pageToDelete){

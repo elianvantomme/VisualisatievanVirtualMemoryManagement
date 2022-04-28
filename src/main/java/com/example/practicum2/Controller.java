@@ -112,7 +112,7 @@ public class Controller {
         processes = new ArrayList<>();
         ram = new RAM();
 
-        //System.out.println(instructionList);
+        System.out.println(instructionList);
     }
 
 
