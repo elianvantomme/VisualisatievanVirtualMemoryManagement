@@ -64,11 +64,11 @@ public class RAM {
         else if(!(processesInRam.size() == 0)) {
             for (Process p : processesInRam) {
                 int amountOfPagesFromEachRemainingProcessToAdd = (originalSize - newSize) / processesInRam.size();
-                List<PageTableEntry> allPTEprocess = p.getPageTable().stream()
+                List<PageTableEntry> allPTEOfprocess = p.getPageTable().stream()
                         .filter(pageTableEntry -> pageTableEntry.getPresentBit() == 0)
                         .toList();
                 for (int i = 0; i < amountOfPagesFromEachRemainingProcessToAdd; i++) {
-                    Page newPage = new Page(process.getProcessID(),allPTEprocess.get(0).getPageNumber());
+                    Page newPage = new Page(process.getProcessID(),allPTEOfprocess.get(i).getPageNumber());
                     frames.add(newPage);
                 }
             }
