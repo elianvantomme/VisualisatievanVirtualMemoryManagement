@@ -6,9 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class Controller {
     private int clock = 0;
@@ -17,7 +15,6 @@ public class Controller {
     private ArrayList<Process> processes;
     private RAM ram;
     private String instructions = "Instructions_20000_20.xml";
-    private int amountOfProcesses;
     private int amountOfInstructions;
 
     @FXML
@@ -107,12 +104,9 @@ public class Controller {
 
         String[] subStrings = instructions.split("_");
         amountOfInstructions = Integer.parseInt(subStrings[1]);
-        amountOfProcesses = Integer.parseInt(subStrings[2].split("\\.")[0]);
         instructionList = xmlParser.readProcesses();
         processes = new ArrayList<>();
         ram = new RAM();
-
-        //System.out.println(instructionList);
     }
 
 
@@ -176,7 +170,7 @@ public class Controller {
     }
 
 
-    void debug(Process currentProcess, Instruction currentInstruction) {
+    void debug(Instruction currentInstruction) {
         System.out.println("time: " + clock);
         System.out.println("current instruction: " + currentInstruction + " virtual page number: " + calculateVPN(currentInstruction.getVirtualAddress()));
         for(Process p : ram.getProcessesInRam()){
@@ -248,7 +242,7 @@ public class Controller {
 
             printRam(ram);
             clock++;
-            debug(process, currentInstruction);
+            debug(currentInstruction);
 
         } else if (counter >= amountOfInstructions - 1) {
             nextInstructionField.setText("END OF INSTRUCTIONS");

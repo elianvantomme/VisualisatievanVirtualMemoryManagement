@@ -19,12 +19,10 @@ public class XMLParser {
     private String file;
 
 
-
     public XMLParser(String file) {
         this.instructionLijst = new ArrayList<>();
         this.file = file;
     }
-
 
     public ArrayList<Instruction> readProcesses() {
 

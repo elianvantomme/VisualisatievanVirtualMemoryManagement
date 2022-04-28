@@ -1,7 +1,6 @@
 package com.example.practicum2;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Process {
     private int processID;

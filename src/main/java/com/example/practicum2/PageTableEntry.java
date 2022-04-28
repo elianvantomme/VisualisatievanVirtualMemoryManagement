@@ -17,6 +17,8 @@ public class PageTableEntry {
         this.pageNumber = pageNumber;
     }
 
+    public int getProcessID() {return processID;}
+
     public int getPresentBit() {
         return presentBit;
     }
@@ -35,10 +37,6 @@ public class PageTableEntry {
 
     public int getPageNumber() {
         return pageNumber;
-    }
-
-    public void setPageNumber(int pageNumber) {
-        this.pageNumber = pageNumber;
     }
 
     public void setFrameNummer(int frameNummer) {

@@ -25,10 +25,6 @@ public class Page {
         return processId;
     }
 
-    public void setProcessId(int processId) {
-        this.processId = processId;
-    }
-
     public int getPageNr() {
         return pageNr;
     }
