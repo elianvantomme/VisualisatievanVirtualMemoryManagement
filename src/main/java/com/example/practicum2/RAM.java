@@ -93,7 +93,7 @@ public class RAM {
 
 
                     //nu is er frame vrij en is voor het binnenkomende process
-                    PageTableEntry pageTableEntry = newProcessPageTable.get(j);
+                    PageTableEntry pageTableEntry = newProcessPageTable.get(j + amountOfFramesToSwapPerProcess * i);
                     pageTableEntry.setPresentBit(1);
                     pageTableEntry.setFrameNummer(frameNumber);
                     //frames.add(new Page(process.getProcessID(), pageTableEntry.getPageNumber()));
@@ -129,7 +129,7 @@ public class RAM {
         for(PageTableEntry pageToSwapOut : pagesToSwapOut){
             //swap out page from pageToSwap to disk
             int frameNumber = pageToSwapOut.getFrameNummer();
-            pageToSwapOut.setFrameNummer(-1); //TODO hoeft dit?
+            pageToSwapOut.setFrameNummer(-1);
             if(pageToSwapOut.getModifyBit()==1) processToRemove.increaseAmountToPersistentMemory();
             pageToSwapOut.setModifyBit(0);
             pageToSwapOut.setPresentBit(0);
