@@ -54,14 +54,6 @@ public class Process {
         return false;
     }
 
-    public List<PageTableEntry> listOfPagesInRAM() {
-        List<PageTableEntry> pagesInRAM = new ArrayList<>();
-        for(PageTableEntry p: pageTable){
-            if(p.getPresentBit() == 1) pagesInRAM.add(p);
-        }
-        return pagesInRAM;
-    }
-
     public void deletePageTable() {
         pageTable.clear();
     }

@@ -211,7 +211,9 @@ public class Controller {
                 case "Terminate" -> {
                     Process process = processes.get(currentInstruction.getpId());
                     if(process.pagesFromProcessInRAM()){
-                        List<PageTableEntry> pageTableEntrysInRam = process.listOfPagesInRAM();
+                        List<PageTableEntry> pageTableEntrysInRam = process.getPageTable().stream()
+                                .filter(pageTableEntry -> pageTableEntry.getPresentBit()==1)
+                                .toList();
                         ram.deletePagesFromProcess(pageTableEntrysInRam, process);
                     }
                     process.deletePageTable();

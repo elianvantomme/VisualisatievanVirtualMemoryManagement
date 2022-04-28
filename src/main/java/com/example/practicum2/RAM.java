@@ -19,7 +19,16 @@ public class RAM {
             deletePageFromFrame(p, pte);
         }
         int newSize = frames.size();
-        // TODO add (originalSize-newSize)/processesInRAM.size() of each remaining process to frames
+
+        for (Process process: processesInRam){
+            int amountOfPagesFromEachRemainingProcessToAdd = (originalSize-newSize)/processesInRam.size();
+            List<PageTableEntry> allPTEprocess = process.getPageTable().stream()
+                    .filter(pageTableEntry -> pageTableEntry.getPresentBit()==0)
+                    .toList();
+            for(int i=0; i<amountOfPagesFromEachRemainingProcessToAdd; i++){
+                frames.add(allPTEprocess.remove(0));
+            }
+        }
     }
 
     public void deletePageFromFrame(Process processToDelete, PageTableEntry pageToDelete){
@@ -175,7 +184,7 @@ public class RAM {
 
     private int addPageToFullRam(Process process) {
         int frameNumber = 0;
-
+        // TODO
 
         return frameNumber;
     }
