@@ -1,25 +1,30 @@
 package com.example.practicum2;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Process {
-    private int processID;
+public class Process implements Serializable {
+    private int processId;
     private ArrayList<PageTableEntry> pageTable;
     private int amountToPersistentMemory;
 
-    public Process(int processID){
-        this.processID = processID;
+    public Process(int processId){
+        this.processId = processId;
         this.pageTable = new ArrayList<>();
         amountToPersistentMemory = 0;
     }
 
-    public int getProcessID() {
-        return processID;
+    public int getProcessId() {
+        return processId;
+    }
+
+    public int getAmountToPersistentMemory() {
+        return amountToPersistentMemory;
     }
 
     public void createPageTable(){
         for (int i = 0; i < 16; i++) {
-            PageTableEntry pageTableEntry = new PageTableEntry(i, processID);
+            PageTableEntry pageTableEntry = new PageTableEntry(i, processId);
             pageTable.add(pageTableEntry);
         }
     }
@@ -60,7 +65,7 @@ public class Process {
     @Override
     public String toString() {
         return "Process{" +
-                "processID=" + processID +
+                "processID=" + processId +
                 '}';
     }
 }

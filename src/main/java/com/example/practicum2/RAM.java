@@ -63,6 +63,9 @@ public class RAM {
                 for (int i = 0; i <  pageTableEntrysInRam.size() / processesInRam.size(); i++) {
                     PageTableEntry pageTableEntryOfToBeDeletedProcess = pageTableEntrysInRam.get(i + count);
                     exchangePageFromFrame(processToDelete, pageTableEntryOfToBeDeletedProcess, process, allPTEOfprocess.get(i));
+                    if (pageTableEntryOfToBeDeletedProcess.getModifyBit() == 1){
+                        processToDelete.increaseAmountToPersistentMemory();
+                    }
                     allPTEOfprocess.get(i).setFrameNummer(pageTableEntryOfToBeDeletedProcess.getFrameNummer());
                     allPTEOfprocess.get(i).setPresentBit(1);
                     if (i ==  pageTableEntrysInRam.size() / processesInRam.size()-1){
@@ -76,13 +79,13 @@ public class RAM {
     public void exchangePageFromFrame(Process processToDelete, PageTableEntry pageToDelete, Process processToInsert, PageTableEntry pageToInsert) {
         Page pageToRemove = null;
         for (Page p : frames) {
-            if (p.getProcessId() == processToDelete.getProcessID() && p.getPageNr() == pageToDelete.getPageNumber()) {
+            if (p.getProcessId() == processToDelete.getProcessId() && p.getPageNr() == pageToDelete.getPageNumber()) {
                 pageToRemove = p;
                 break;
             }
         }
         int index = frames.indexOf(pageToRemove);
-        frames.set(index, new Page(processToInsert.getProcessID(), pageToInsert.getPageNumber()));
+        frames.set(index, new Page(processToInsert.getProcessId(), pageToInsert.getPageNumber()));
     }
 
     public void addProcessToNotFullRam(Process process) {
@@ -96,7 +99,7 @@ public class RAM {
                 PageTableEntry pageTableEntry = pageTable.get(i);
                 pageTableEntry.setFrameNummer(i);
                 pageTableEntry.setPresentBit(1);
-                Page page = new Page(process.getProcessID(), i);
+                Page page = new Page(process.getProcessId(), i);
                 frames.add(page);
             }
         } else {
